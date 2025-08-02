@@ -1,0 +1,22 @@
+{
+  "first_name": "John",
+  "last_name": "Doe",
+  "bio": "Software engineer passionate about open source.",
+  "dob": "1990-01-01",
+  "gender": "Male",
+  "marital_status": "Married",
+  "spouse_name": "Jane Doe",
+  "email": "john.doe@example.com",
+  "phone": "+12345678901",
+  "country": "US",
+  "state": "CA",
+  "address_line1": "123 Main St",
+  "address_line2": "Apt 4B",
+  "city": "San Francisco",
+  "zip": "94105",
+  "username": "john_doe",
+  "password": "Password123",
+  "confirm_password": "Password123",
+  "newsletter": true,
+  "user_role": "Admin"
+}

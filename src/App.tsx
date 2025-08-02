@@ -1,5 +1,5 @@
+import DynamicFormDisplay from './components/DynamicFormDisplay';
 import ContextView from './features/contact/ContactView';
-import ConversationsView from './features/conversations/ConversationView';
 import LayoutContainer from './features/layout/components/LayoutContainer';
 import NotesView from './features/notes/components/NotesView';
 
@@ -10,8 +10,8 @@ function App() {
         <LayoutContainer className="col-span-3 h-full">
           <ContextView />
         </LayoutContainer>
-        <LayoutContainer className="col-span-6 h-full">
-          <ConversationsView />
+        <LayoutContainer className="col-span-6 h-full overflow-y-auto">
+          <DynamicFormDisplay />
         </LayoutContainer>
         <LayoutContainer className="col-span-3 h-full overflow-y-auto">
           <NotesView />
