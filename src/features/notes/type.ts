@@ -17,11 +17,11 @@ export type TagType =
 
 // Tag styling configuration
 export const TAG_STYLES: Record<TagType, string> = {
-  primary: 'text-primary font-medium',
-  secondary: 'text-secondary font-medium',
-  accent: 'text-accent font-medium',
-  info: 'text-info font-medium',
-  success: 'text-success font-medium',
-  warning: 'text-warning font-medium',
-  error: 'text-error font-medium',
+  primary: 'text-blue-500 font-medium',
+  secondary: 'text-green-500 font-medium',
+  accent: 'text-amber-500 font-medium',
+  info: 'text-indigo-500 font-medium',
+  success: 'text-emerald-500 font-medium',
+  warning: 'text-yellow-500 font-medium',
+  error: 'text-red-500 font-medium',
 } as const;

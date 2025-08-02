@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button';
 import { PlusIcon, X } from 'lucide-react';
 import Notes from '../Notes';
 
@@ -7,16 +8,16 @@ const NotesView = () => {
       <div className="flex justify-between items-center">
         <h2 className="text-base leading-none font-semibold">Notes</h2>
         <div className="flex items-center text-gray-600">
-          <button className="btn btn-ghost btn-sm">
+          <Button variant="ghost" size="sm">
             <PlusIcon className="w-4 h-4" />
             Add
-          </button>
-          <button className="btn btn-ghost btn-sm btn-circle">
+          </Button>
+          <Button variant="ghost" size="sm" className="rounded-full">
             <X className="w-4 h-4" />
-          </button>
+          </Button>
         </div>
       </div>
-      <div className="flex-1 overflow-y-auto mt-2">
+      <div className="flex-1 overflow-y-auto my-2">
         <Notes />
       </div>
     </>

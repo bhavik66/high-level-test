@@ -33,6 +33,7 @@ export default tseslint.config([
       'arrow-parens': 'off',
       'bracket-spacing': 'off',
       'bracket-same-line': 'off',
+      'react-refresh/only-export-components': 'off',
     },
   },
 ]);

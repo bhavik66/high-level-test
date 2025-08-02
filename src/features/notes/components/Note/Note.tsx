@@ -1,3 +1,4 @@
+import { Card, CardContent } from '@/components/ui/card';
 import React from 'react';
 import { useContentParser, type ParsedLine } from '../../hooks';
 
@@ -22,8 +23,10 @@ const Note: React.FC<NoteProps> = ({ content, timestamp, className = '' }) => {
   const parsedLines = useContentParser(content);
 
   return (
-    <div className={`card bg-warning/20 border border-warning ${className}`}>
-      <div className="card-body p-4">
+    <Card
+      className={`shadow-none rounded-sm border-amber-300 bg-amber-50 py-0 ${className}`}
+    >
+      <CardContent className="p-4">
         <div className="flex flex-col gap-2">
           {/* Note content */}
           <div className="text-gray-700 text-sm leading-relaxed">
@@ -35,8 +38,8 @@ const Note: React.FC<NoteProps> = ({ content, timestamp, className = '' }) => {
           {/* Timestamp */}
           <div className="text-gray-500 text-xs">{timestamp}</div>
         </div>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
   );
 };
 
