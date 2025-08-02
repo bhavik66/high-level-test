@@ -12,7 +12,7 @@ function App() {
         <div className="col-span-6 h-full">
           <ConversationsView />
         </div>
-        <div className="col-span-3 h-full">
+        <div className="col-span-3 h-full overflow-y-auto">
           <NotesView />
         </div>
       </div>
