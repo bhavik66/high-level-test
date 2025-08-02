@@ -1,17 +1,20 @@
-import Note from './components/Note';
+import ContextView from './features/contact/ContactView';
+import ConversationsView from './features/conversations/ConversationView';
+import NotesView from './features/notes/components/NotesView';
 
 function App() {
   return (
-    <div className="min-h-screen bg-base-200 p-8">
-      <div className="max-w-md mx-auto">
-        <h1 className="text-2xl font-bold mb-6 text-center">
-          Note Component Demo
-        </h1>
-
-        <Note
-          content={`<span class="tag-primary">@Aaron Site</span> Inspection completed. Heavy moss buildup on north side, moderate algae staining. Customer very satisfied with quote presentation. Chose Premium package. Payment processed via credit card. Mentioned neighbor also needs service.`}
-          timestamp="2 hours ago"
-        />
+    <div className="p-4 h-screen">
+      <div className="grid grid-cols-12 gap-4 h-full">
+        <div className="col-span-3 h-full">
+          <ContextView />
+        </div>
+        <div className="col-span-6 h-full">
+          <ConversationsView />
+        </div>
+        <div className="col-span-3 h-full">
+          <NotesView />
+        </div>
       </div>
     </div>
   );

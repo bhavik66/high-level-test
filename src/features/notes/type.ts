@@ -1,3 +1,10 @@
+// Note data structure
+export interface NoteData {
+  id: string;
+  content: string;
+  timestamp: string;
+}
+
 // Tag type mapping for better type safety
 export type TagType =
   | 'primary'

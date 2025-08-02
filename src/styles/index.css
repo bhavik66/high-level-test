@@ -1,11 +1,5 @@
 @import 'tailwindcss';
-@plugin "daisyui" {
-  themes:
-    light --default,
-    dark --prefersdark,
-    cupcake;
-}
-
+@plugin "daisyui";
 @plugin "daisyui/theme" {
   name: 'lofi';
   default: false;
@@ -39,4 +33,23 @@
   --border: 1px;
   --depth: 1;
   --noise: 0;
+}
+
+html {
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: auto;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background-color: #f0f0f0;
+  overscroll-behavior: none;
+  -webkit-overflow-scrolling: auto;
+}
+
+:root {
+  background-color: #f0f0f0;
+  height: 100%;
 }
