@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const ContactHeader = () => {
   return (
-    <div className="flex items-center justify-between w-full py-2">
+    <div className="flex items-center justify-between w-full">
       {/* Left section with back button and title */}
       <div className="flex items-center gap-3">
         <Button variant="ghost" size="icon" className="h-8 w-8">

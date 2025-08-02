@@ -3,8 +3,8 @@ import {
   LayoutViewCardContent,
   LayoutViewCardHeader,
 } from '@/components/LayoutViewCard';
-import NoteHeader from '@/features/notes/components/NoteHeader';
-import NoteContent from '../NoteContent';
+import NoteContent from './NoteContent';
+import NoteHeader from './NoteHeader';
 
 const NotesView = () => {
   return (

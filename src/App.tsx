@@ -5,7 +5,7 @@ import NotesView from './features/notes/components/NotesView';
 
 function App() {
   return (
-    <div className="p-4 h-screen">
+    <div className="p-4 h-screen bg-gray-200">
       <div className="grid grid-cols-12 gap-4 h-full">
         <Layout className="col-span-3 h-full">
           <ContextView />

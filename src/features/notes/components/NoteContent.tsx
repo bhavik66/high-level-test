@@ -1,6 +1,6 @@
 import React from 'react';
-import type { NoteData } from '../../type';
-import Note from '../Note';
+import type { NoteData } from '../type';
+import Note from './Note';
 
 interface NoteContentProps {
   notes?: NoteData[];

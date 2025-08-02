@@ -1,6 +1,6 @@
 import { Card, CardContent } from '@/components/ui/card';
 import React from 'react';
-import { useContentParser, type ParsedLine } from '../../hooks';
+import { useContentParser, type ParsedLine } from '../hooks';
 
 // Note component props
 interface NoteProps {

@@ -3,15 +3,15 @@ import { ChevronDown, MessageCircleMore } from 'lucide-react';
 
 const ConversationHeader = () => {
   return (
-    <div>
-      <Button
-        variant="ghost"
-        className="flex gap-2 px-3 py-2 h-auto text-gray-700 hover:bg-gray-50 font-semibold text-lg self-start"
-        size="lg"
-      >
-        <MessageCircleMore className="w-8 h-8" />
+    <div className="flex items-center">
+      <h1 className="flex gap-2 text-gray-700 font-semibold text-lg">
+        <div className="flex items-center gap-2">
+          <MessageCircleMore className="w-4 h-4" />
+        </div>
         Conversations
-        <ChevronDown className="w-8 h-8" />
+      </h1>
+      <Button variant="ghost" size="sm" className="rounded-full">
+        <ChevronDown className="w-4 h-4" />
       </Button>
     </div>
   );

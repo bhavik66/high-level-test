@@ -3,8 +3,8 @@ import { PlusIcon, X } from 'lucide-react';
 
 const NoteHeader = () => {
   return (
-    <div className="flex justify-between items-center p-0">
-      <h2 className="text-base leading-none font-semibold">Notes</h2>
+    <div className="flex justify-between items-center">
+      <h1 className="text-lg font-semibold text-foreground">Notes</h1>
       <div className="flex items-center text-gray-600">
         <Button variant="ghost" size="sm">
           <PlusIcon className="w-4 h-4" />
