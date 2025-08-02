@@ -4,26 +4,26 @@ import { Suspense, useMemo } from 'react';
 import { ErrorBoundary, LoadingFallback } from '@/components/ErrorBoundary';
 import Layout from '@/components/Layout';
 
+// JSON Config
+import layoutConfig from '@/assets/data/mainLayout.json';
+
 // Types and constants
 import { componentMap } from '@/constants/componentMap';
-import {
-  LAYOUT_PRESETS,
-  getPresetContainerClasses,
-  getPresetGapClasses,
-} from '@/constants/layoutPresets';
-import type { DynamicMainLayoutProps, LayoutItem } from '@/types/layoutTypes';
+import type { LayoutItem } from '@/types/layoutTypes';
 
 // Utilities
-import { composeClasses } from '@/utils/layoutUtils';
+import { composeClasses, isValidLayoutItem } from '@/utils/layoutUtils';
 
 // ===============================
 // MAIN DYNAMIC LAYOUT COMPONENT
 // ===============================
 const DynamicMainLayout = ({
-  preset = 'default',
   customConfig,
   onError,
-}: DynamicMainLayoutProps) => {
+}: {
+  customConfig?: LayoutItem[];
+  onError?: (error: Error, componentName?: string) => void;
+} = {}) => {
   // ===============================
   // MEMOIZED CONFIGURATION
   // ===============================
@@ -32,21 +32,23 @@ const DynamicMainLayout = ({
 
     if (customConfig) {
       items = customConfig;
-    } else if (preset !== 'default') {
-      items = LAYOUT_PRESETS[preset].map((presetItem, idx) => ({
-        ...presetItem,
-        id: `${preset}-${idx}`,
-      }));
     } else {
-      // Use the default preset
-      items = LAYOUT_PRESETS.default.map((presetItem, idx) => ({
-        ...presetItem,
-        id: `default-${idx}`,
+      // Use mainLayout.json
+      const parsedConfig = (
+        Array.isArray(layoutConfig)
+          ? layoutConfig.filter(isValidLayoutItem)
+          : []
+      ) as LayoutItem[];
+
+      items = parsedConfig.map((item, idx) => ({
+        ...item,
+        id: `layout-${idx}`,
+        visible: item.visible !== false,
       }));
     }
 
     return items.filter(item => item.visible !== false);
-  }, [preset, customConfig]);
+  }, [customConfig]);
 
   // ===============================
   // ERROR HANDLER
@@ -57,13 +59,9 @@ const DynamicMainLayout = ({
   };
 
   // ===============================
-  // DYNAMIC STYLING
+  // CONTAINER CLASSES
   // ===============================
-  const gapClasses = useMemo(() => getPresetGapClasses(preset), [preset]);
-  const containerClasses = useMemo(
-    () => getPresetContainerClasses(preset, gapClasses),
-    [preset, gapClasses]
-  );
+  const containerClasses = 'grid grid-cols-12 gap-2 sm:gap-4 h-full';
 
   // ===============================
   // RENDER
