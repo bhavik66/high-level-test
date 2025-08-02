@@ -11,7 +11,7 @@
           "label": "First Name",
           "type": "text",
           "placeholder": "John",
-          "defaultValue": "{{user.firstName}}",
+          "defaultValue": "{{firstName}}",
           "validation": [
             {
               "type": "required",
@@ -35,7 +35,7 @@
           "label": "Last Name",
           "type": "text",
           "placeholder": "Doe",
-          "defaultValue": "{{user.lastName}}",
+          "defaultValue": "{{lastName}}",
           "validation": [
             {
               "type": "required",

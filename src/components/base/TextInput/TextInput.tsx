@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import type { FormData, ValidationRule } from '../../../utils/validation';
+import { validateField } from '../../../utils/validation';
 
 interface TextInputProps {
   id?: string;
   label?: string;
   placeholder?: string;
+  type?: 'text' | 'email' | 'tel' | 'url' | 'search';
   value?: string;
   defaultValue?: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onValidation?: (isValid: boolean, error?: string) => void;
   required?: boolean;
   disabled?: boolean;
   className?: string;
@@ -23,15 +27,22 @@ interface TextInputProps {
     | 'success'
     | 'warning'
     | 'error';
+  // Validation props
+  validationRules?: ValidationRule[];
+  formData?: FormData;
+  validateOnChange?: boolean;
+  validateOnBlur?: boolean;
 }
 
 const TextInput: React.FC<TextInputProps> = ({
   id,
   label,
   placeholder,
+  type = 'text',
   value,
   defaultValue,
   onChange,
+  onValidation,
   required = false,
   disabled = false,
   className = '',
@@ -39,7 +50,23 @@ const TextInput: React.FC<TextInputProps> = ({
   hint,
   size = 'md',
   variant = 'bordered',
+  validationRules = [],
+  formData,
+  validateOnChange = false,
+  validateOnBlur = true,
 }) => {
+  const [validationError, setValidationError] = useState<string>('');
+
+  // Auto-validate when value changes if validateOnChange is true
+  useEffect(() => {
+    if (validateOnChange && validationRules.length > 0) {
+      const result = validateField(value, validationRules, formData);
+      setValidationError(result.error || '');
+      if (onValidation) {
+        onValidation(result.isValid, result.error);
+      }
+    }
+  }, [value, validationRules, formData, validateOnChange, onValidation]);
   const sizeClasses = {
     xs: 'input-xs',
     sm: 'input-sm',
@@ -59,9 +86,26 @@ const TextInput: React.FC<TextInputProps> = ({
     error: 'input-error',
   };
 
+  const displayError = error || validationError;
   const inputClasses = `input ${sizeClasses[size]} ${variantClasses[variant]} w-full ${
-    error ? 'input-error' : ''
+    displayError ? 'input-error' : ''
   } ${className}`;
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (onChange) {
+      onChange(e);
+    }
+  };
+
+  const handleBlur = () => {
+    if (validateOnBlur && validationRules.length > 0) {
+      const result = validateField(value, validationRules, formData);
+      setValidationError(result.error || '');
+      if (onValidation) {
+        onValidation(result.isValid, result.error);
+      }
+    }
+  };
 
   return (
     <div className="form-control w-full">
@@ -73,23 +117,26 @@ const TextInput: React.FC<TextInputProps> = ({
           </span>
         </label>
       )}
-      <input
-        id={id}
-        type="text"
-        className={inputClasses}
-        placeholder={placeholder}
-        value={value}
-        defaultValue={defaultValue}
-        onChange={onChange}
-        required={required}
-        disabled={disabled}
-      />
-      {(error || hint) && (
+      <div className="relative">
+        <input
+          id={id}
+          type={type}
+          className={inputClasses}
+          placeholder={placeholder}
+          value={value}
+          defaultValue={defaultValue}
+          onChange={handleChange}
+          onBlur={handleBlur}
+          required={required}
+          disabled={disabled}
+        />
+      </div>
+      {(displayError || hint) && (
         <label className="label">
           <span
-            className={`label-text-alt ${error ? 'text-error' : 'text-base-content/70'}`}
+            className={`label-text-alt ${displayError ? 'text-error' : 'text-base-content/70'}`}
           >
-            {error || hint}
+            {displayError || hint}
           </span>
         </label>
       )}
