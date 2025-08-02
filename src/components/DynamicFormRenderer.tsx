@@ -378,7 +378,7 @@ const DynamicFormRenderer: React.FC<DynamicFormRendererProps> = ({
       )}
 
       {/* Groups */}
-      <div className="space-y-2">
+      <div className="space-y-3">
         {displayGroups.map(group => (
           <BaseGroup
             key={group.id}

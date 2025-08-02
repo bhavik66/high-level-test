@@ -24,7 +24,7 @@ const BaseGroup: React.FC<BaseGroupProps> = ({
       onOpenChange={onToggle}
     >
       <CollapsibleTrigger asChild>
-        <div className="flex items-center justify-between p-3 cursor-pointer select-none transition-all duration-200 ease-in-out">
+        <div className="flex items-center justify-between px-4 py-3 cursor-pointer select-none transition-all duration-200 ease-in-out">
           <div>
             <h3 className="text-base font-medium text-gray-900 transition-colors duration-200">
               {group.label}

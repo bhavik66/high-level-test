@@ -6,12 +6,12 @@ function LayoutViewCard({ children }: { children: React.ReactNode }) {
 }
 
 function LayoutViewCardHeader({ children }: { children: React.ReactNode }) {
-  return <CardHeader className="gap-0 pl-4 pr-2">{children}</CardHeader>;
+  return <CardHeader className="gap-0 pl-4 pr-2 py-1">{children}</CardHeader>;
 }
 
 function LayoutViewCardContent({ children }: { children: React.ReactNode }) {
   return (
-    <CardContent className="px-0 py-2 h-full overflow-y-auto">
+    <CardContent className="px-0 h-full overflow-y-auto">
       <ScrollArea className="h-full px-4">{children}</ScrollArea>
     </CardContent>
   );
