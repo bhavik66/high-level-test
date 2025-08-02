@@ -24,7 +24,7 @@ const Note: React.FC<NoteProps> = ({ content, timestamp, className = '' }) => {
 
   return (
     <Card
-      className={`shadow-none rounded-sm border-amber-300 bg-amber-50 py-0 ${className}`}
+      className={`shadow-none rounded border-amber-300 bg-amber-50 py-0 ${className}`}
     >
       <CardContent className="p-4">
         <div className="flex flex-col gap-2">

@@ -2,8 +2,7 @@ import React from 'react';
 import type { NoteData } from '../../type';
 import Note from '../Note';
 
-// Notes component props
-interface NotesProps {
+interface NoteContentProps {
   notes?: NoteData[];
   className?: string;
 }
@@ -62,17 +61,19 @@ const dummyNotes = [
   },
 ];
 
-const Notes: React.FC<NotesProps> = ({
-  notes = dummyNotes,
-  className = '',
-}) => {
+const NoteContent: React.FC<NoteContentProps> = ({ notes = dummyNotes }) => {
   return (
-    <div className={`space-y-2 w-full ${className}`}>
+    <>
       {notes.map(note => (
-        <Note key={note.id} content={note.content} timestamp={note.timestamp} />
+        <Note
+          key={note.id}
+          content={note.content}
+          timestamp={note.timestamp}
+          className="mb-3"
+        />
       ))}
-    </div>
+    </>
   );
 };
 
-export default Notes;
+export default NoteContent;
