@@ -1,11 +1,10 @@
 /**
- * BaseGroup component with collapsible functionality
+ * BaseGroup component with smooth collapsible functionality
  */
 
-import { ChevronDown, ChevronRight } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import React from 'react';
 import type { BaseGroupProps } from '../types/formTypes';
-import { Card, CardContent, CardHeader } from './ui/card';
 import {
   Collapsible,
   CollapsibleContent,
@@ -19,39 +18,32 @@ const BaseGroup: React.FC<BaseGroupProps> = ({
   children,
 }) => {
   return (
-    <Card className="w-full">
-      <Collapsible open={isOpen} onOpenChange={onToggle}>
-        <CollapsibleTrigger asChild>
-          <CardHeader className="cursor-pointer hover:bg-gray-50 transition-colors duration-200 pb-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <div className="flex items-center justify-center w-8 h-8 rounded-full bg-blue-100">
-                  {isOpen ? (
-                    <ChevronDown className="h-4 w-4 text-blue-600" />
-                  ) : (
-                    <ChevronRight className="h-4 w-4 text-blue-600" />
-                  )}
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900">
-                    {group.label}
-                  </h3>
-                  {group.description && (
-                    <p className="text-sm text-gray-600 mt-1">
-                      {group.description}
-                    </p>
-                  )}
-                </div>
-              </div>
-            </div>
-          </CardHeader>
-        </CollapsibleTrigger>
+    <Collapsible
+      className="border rounded-lg"
+      open={isOpen}
+      onOpenChange={onToggle}
+    >
+      <CollapsibleTrigger asChild>
+        <div className="flex items-center justify-between p-4 cursor-pointer select-none transition-all duration-200 ease-in-out">
+          <div>
+            <h3 className="text-base font-medium text-gray-900 transition-colors duration-200">
+              {group.label}
+            </h3>
+          </div>
+          <div className="flex items-center justify-center w-5 h-5">
+            <ChevronDown
+              className={`h-5 w-5 text-gray-600 transition-all duration-300 ease-in-out transform ${
+                isOpen ? 'rotate-180' : 'rotate-0'
+              }`}
+            />
+          </div>
+        </div>
+      </CollapsibleTrigger>
 
-        <CollapsibleContent>
-          <CardContent className="pt-0">{children}</CardContent>
-        </CollapsibleContent>
-      </Collapsible>
-    </Card>
+      <CollapsibleContent className="border-t-1">
+        <div className="p-4">{children}</div>
+      </CollapsibleContent>
+    </Collapsible>
   );
 };
 
