@@ -1,5 +1,5 @@
 import Layout from '@/components/Layout';
-import ConversationsView from '@/features/conversations/ConversationView';
+import ConversationsView from '@/features/conversations/components/ConversationsView';
 import ContextView from './features/contact/components/ContactView';
 import NotesView from './features/notes/components/NotesView';
 
