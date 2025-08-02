@@ -1,0 +1,379 @@
+{
+  "groups": [
+    {
+      "id": "personal_info",
+      "label": "Personal Information",
+      "description": "Tell us a bit about yourself",
+      "ui": { "icon": "user", "columns": 12 },
+      "fields": [
+        {
+          "id": "first_name",
+          "label": "First Name",
+          "type": "text",
+          "placeholder": "John",
+          "defaultValue": "{{user.firstName}}",
+          "validation": [
+            {
+              "type": "required",
+              "errorMessage": "First name is required"
+            },
+            {
+              "type": "minLength",
+              "value": 2,
+              "errorMessage": "First name must be at least 2 characters"
+            },
+            {
+              "type": "maxLength",
+              "value": 50,
+              "errorMessage": "First name cannot exceed 50 characters"
+            }
+          ],
+          "ui": { "colSpan": 6 }
+        },
+        {
+          "id": "last_name",
+          "label": "Last Name",
+          "type": "text",
+          "placeholder": "Doe",
+          "defaultValue": "{{user.lastName}}",
+          "validation": [
+            {
+              "type": "required",
+              "errorMessage": "Last name is required"
+            },
+            {
+              "type": "minLength",
+              "value": 2,
+              "errorMessage": "Last name must be at least 2 characters"
+            },
+            {
+              "type": "maxLength",
+              "value": 50,
+              "errorMessage": "Last name cannot exceed 50 characters"
+            }
+          ],
+          "ui": { "colSpan": 6 }
+        },
+        {
+          "id": "bio",
+          "label": "Biography",
+          "type": "textarea",
+          "placeholder": "Tell us about yourself",
+          "validation": [
+            {
+              "type": "maxLength",
+              "value": 500,
+              "errorMessage": "Biography cannot exceed 500 characters"
+            }
+          ],
+          "ui": { "colSpan": 12, "rows": 4 }
+        },
+        {
+          "id": "dob",
+          "label": "Date of Birth",
+          "type": "date",
+          "validation": [
+            {
+              "type": "required",
+              "errorMessage": "Date of birth is required"
+            },
+            {
+              "type": "maxDate",
+              "value": "today",
+              "errorMessage": "Date of birth cannot be in the future"
+            },
+            {
+              "type": "age",
+              "value": 18,
+              "errorMessage": "User must be at least 18 years old"
+            }
+          ],
+          "ui": { "colSpan": 6 }
+        },
+        {
+          "id": "gender",
+          "label": "Gender",
+          "type": "select",
+          "options": [
+            { "label": "Male", "value": "male" },
+            { "label": "Female", "value": "female" },
+            { "label": "Other", "value": "other" }
+          ],
+          "validation": [
+            {
+              "type": "required",
+              "errorMessage": "Please select a gender"
+            }
+          ],
+          "ui": { "colSpan": 6 }
+        },
+        {
+          "id": "marital_status",
+          "label": "Marital Status",
+          "type": "radio",
+          "options": [
+            { "label": "Single", "value": "single" },
+            { "label": "Married", "value": "married" },
+            { "label": "Divorced", "value": "divorced" },
+            { "label": "Widowed", "value": "widowed" }
+          ],
+          "validation": [
+            {
+              "type": "required",
+              "errorMessage": "Please select your marital status"
+            }
+          ],
+          "ui": { "colSpan": 12 }
+        },
+        {
+          "id": "spouse_name",
+          "label": "Spouse Name",
+          "type": "text",
+          "visibility": {
+            "dependsOn": "marital_status",
+            "value": "Married"
+          },
+          "validation": [
+            {
+              "type": "minLength",
+              "value": 2,
+              "errorMessage": "Spouse name must be at least 2 characters"
+            },
+            {
+              "type": "maxLength",
+              "value": 50,
+              "errorMessage": "Spouse name cannot exceed 50 characters"
+            }
+          ],
+          "ui": { "colSpan": 12 }
+        }
+      ]
+    },
+
+    {
+      "id": "contact_info",
+      "label": "Contact Information",
+      "description": "How can we reach you?",
+      "ui": { "icon": "mail", "columns": 12 },
+      "fields": [
+        {
+          "id": "email",
+          "label": "Email Address",
+          "type": "email",
+          "placeholder": "email@example.com",
+          "validation": [
+            {
+              "type": "required",
+              "errorMessage": "Email address is required"
+            },
+            {
+              "type": "email",
+              "errorMessage": "Please enter a valid email address"
+            }
+          ],
+          "ui": { "colSpan": 6 }
+        },
+        {
+          "id": "phone",
+          "label": "Phone Number",
+          "type": "tel",
+          "placeholder": "+123 456 7890",
+          "validation": [
+            {
+              "type": "pattern",
+              "value": "^[+]?\\d{10,15}$",
+              "errorMessage": "Please enter a valid phone number"
+            }
+          ],
+          "ui": { "colSpan": 6 }
+        },
+        {
+          "id": "country",
+          "label": "Country",
+          "type": "dropdown",
+          "options": [
+            { "label": "United States", "value": "us" },
+            { "label": "Canada", "value": "ca" },
+            { "label": "United Kingdom", "value": "uk" },
+            { "label": "Germany", "value": "de" },
+            { "label": "France", "value": "fr" },
+            { "label": "Australia", "value": "au" },
+            { "label": "Japan", "value": "jp" },
+            { "label": "India", "value": "in" }
+          ],
+          "validation": [
+            {
+              "type": "required",
+              "errorMessage": "Please select a country"
+            }
+          ],
+          "ui": { "colSpan": 6 }
+        },
+        {
+          "id": "state",
+          "label": "State / Province",
+          "type": "dropdown",
+          "options": [
+            { "label": "California", "value": "ca" },
+            { "label": "New York", "value": "ny" },
+            { "label": "Texas", "value": "tx" },
+            { "label": "Florida", "value": "fl" },
+            { "label": "Illinois", "value": "il" }
+          ],
+          "visibility": {
+            "dependsOn": "country",
+            "valueNotEmpty": true
+          },
+          "validation": [
+            {
+              "type": "required",
+              "errorMessage": "Please select a state/province"
+            }
+          ],
+          "ui": { "colSpan": 6 }
+        },
+        {
+          "id": "address_line1",
+          "label": "Address Line 1",
+          "type": "text",
+          "validation": [
+            {
+              "type": "required",
+              "errorMessage": "Address line 1 is required"
+            }
+          ],
+          "ui": { "colSpan": 12 }
+        },
+        {
+          "id": "address_line2",
+          "label": "Address Line 2",
+          "type": "text",
+          "ui": { "colSpan": 12 }
+        },
+        {
+          "id": "city",
+          "label": "City",
+          "type": "text",
+          "validation": [
+            {
+              "type": "required",
+              "errorMessage": "City is required"
+            }
+          ],
+          "ui": { "colSpan": 6 }
+        },
+        {
+          "id": "zip",
+          "label": "ZIP / Postal Code",
+          "type": "text",
+          "validation": [
+            {
+              "type": "required",
+              "errorMessage": "ZIP/postal code is required"
+            },
+            {
+              "type": "pattern",
+              "value": "^[A-Za-z0-9 -]{3,10}$",
+              "errorMessage": "Please enter a valid ZIP/postal code"
+            }
+          ],
+          "ui": { "colSpan": 6 }
+        }
+      ]
+    },
+
+    {
+      "id": "account_details",
+      "label": "Account Details",
+      "ui": { "icon": "settings" },
+      "fields": [
+        {
+          "id": "username",
+          "label": "Username",
+          "type": "text",
+          "placeholder": "Unique username",
+          "validation": [
+            {
+              "type": "required",
+              "errorMessage": "Username is required"
+            },
+            {
+              "type": "minLength",
+              "value": 4,
+              "errorMessage": "Username must be at least 4 characters"
+            },
+            {
+              "type": "maxLength",
+              "value": 20,
+              "errorMessage": "Username cannot exceed 20 characters"
+            },
+            {
+              "type": "pattern",
+              "value": "^[a-zA-Z0-9_]+$",
+              "errorMessage": "Username can only contain letters, numbers, and underscores"
+            }
+          ]
+        },
+        {
+          "id": "password",
+          "label": "Password",
+          "type": "password",
+          "validation": [
+            {
+              "type": "required",
+              "errorMessage": "Password is required"
+            },
+            {
+              "type": "minLength",
+              "value": 8,
+              "errorMessage": "Password must be at least 8 characters"
+            },
+            {
+              "type": "pattern",
+              "value": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$",
+              "errorMessage": "Password must contain uppercase, lowercase, and number"
+            }
+          ]
+        },
+        {
+          "id": "confirm_password",
+          "label": "Confirm Password",
+          "type": "password",
+          "validation": [
+            {
+              "type": "required",
+              "errorMessage": "Please confirm your password"
+            },
+            {
+              "type": "match",
+              "field": "account_details.password",
+              "errorMessage": "Passwords do not match"
+            }
+          ]
+        },
+        {
+          "id": "newsletter",
+          "label": "Subscribe to Newsletter",
+          "type": "checkbox",
+          "defaultValue": false
+        },
+        {
+          "id": "user_role",
+          "label": "User Role",
+          "type": "dropdown",
+          "options": [
+            { "label": "Admin", "value": "admin" },
+            { "label": "Editor", "value": "editor" },
+            { "label": "Viewer", "value": "viewer" }
+          ],
+          "validation": [
+            {
+              "type": "required",
+              "errorMessage": "Please select a user role"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
