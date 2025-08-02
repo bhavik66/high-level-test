@@ -342,7 +342,7 @@ const DynamicFormRenderer: React.FC<DynamicFormRendererProps> = ({
   return (
     <div>
       {/* Action Bar */}
-      <div className="flex justify-end mb-4">
+      <div className="justify-end mb-4 hidden">
         {!isEditing ? (
           <Button
             onClick={startEdit}
@@ -378,7 +378,7 @@ const DynamicFormRenderer: React.FC<DynamicFormRendererProps> = ({
       )}
 
       {/* Groups */}
-      <div className="space-y-6">
+      <div className="space-y-2">
         {displayGroups.map(group => (
           <BaseGroup
             key={group.id}

@@ -159,7 +159,7 @@ const BaseField: React.FC<BaseFieldProps> = ({
         <Label
           htmlFor={field.id}
           className={cn(
-            'text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70',
+            'text-sm font-medium text-gray-500 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70',
             isRequired &&
               isEditing &&
               'after:content-["*"] after:ml-0.5 after:text-red-500'
