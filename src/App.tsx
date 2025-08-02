@@ -1,22 +1,13 @@
-import Layout from '@/components/Layout';
-import ConversationsView from '@/features/conversations/components/ConversationsView';
-import ContextView from './features/contact/components/ContactView';
-import NotesView from './features/notes/components/NotesView';
+import DynamicMainLayout from '@/components/DynamicMainLayout';
 
 function App() {
+  const handleError = (error: Error, componentName?: string) => {
+    console.error('Layout error:', error, componentName);
+  };
+
   return (
-    <div className="p-4 h-screen bg-gray-200">
-      <div className="grid grid-cols-12 gap-4 h-full">
-        <Layout className="col-span-3 h-full">
-          <ContextView />
-        </Layout>
-        <Layout className="col-span-6 h-full overflow-y-auto">
-          <ConversationsView />
-        </Layout>
-        <Layout className="col-span-3 h-full">
-          <NotesView />
-        </Layout>
-      </div>
+    <div className="p-2 sm:p-4 h-screen bg-gray-200">
+      <DynamicMainLayout onError={handleError} />
     </div>
   );
 }

@@ -1,0 +1,32 @@
+[
+  {
+    "component": "ContactView",
+    "className": "h-full",
+    "responsive": {
+      "base": "col-span-12 mb-4",
+      "md": "col-span-4 mb-0",
+      "lg": "col-span-3",
+      "xl": "col-span-3"
+    }
+  },
+  {
+    "component": "ConversationsView",
+    "className": "h-full overflow-y-auto",
+    "responsive": {
+      "base": "col-span-12 mb-4",
+      "md": "col-span-4 mb-0",
+      "lg": "col-span-6",
+      "xl": "col-span-6"
+    }
+  },
+  {
+    "component": "NotesView",
+    "className": "h-full",
+    "responsive": {
+      "base": "col-span-12 mb-4",
+      "md": "col-span-4 mb-0",
+      "lg": "col-span-3",
+      "xl": "col-span-3"
+    }
+  }
+]
