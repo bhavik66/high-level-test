@@ -342,12 +342,9 @@ const DynamicFormRenderer: React.FC<DynamicFormRendererProps> = ({
   return (
     <div>
       {/* Action Bar */}
-      <div className="justify-end mb-4 hidden">
+      <div className="flex justify-end mb-4">
         {!isEditing ? (
-          <Button
-            onClick={startEdit}
-            className="bg-blue-600 hover:bg-blue-700 text-white"
-          >
+          <Button onClick={startEdit} variant={'default'} size={'sm'}>
             Edit
           </Button>
         ) : (
@@ -356,6 +353,7 @@ const DynamicFormRenderer: React.FC<DynamicFormRendererProps> = ({
               onClick={saveEdit}
               disabled={isSaving}
               className="bg-green-600 hover:bg-green-700 text-white disabled:opacity-50 disabled:cursor-not-allowed"
+              size={'sm'}
             >
               {isSaving ? 'Saving...' : 'Save'}
             </Button>
@@ -363,6 +361,7 @@ const DynamicFormRenderer: React.FC<DynamicFormRendererProps> = ({
               onClick={cancelEdit}
               variant="outline"
               className="text-gray-800 hover:bg-gray-100"
+              size={'sm'}
             >
               Cancel
             </Button>

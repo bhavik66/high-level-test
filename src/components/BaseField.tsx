@@ -7,6 +7,7 @@ import React from 'react';
 import type { BaseFieldProps } from '../types/formTypes';
 import { getInputType, isFieldRequired } from '../utils/validation';
 import { Checkbox } from './ui/checkbox';
+import { DatePicker } from './ui/date-picker';
 import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { RadioGroup, RadioGroupItem } from './ui/radio-group';
@@ -49,12 +50,28 @@ const BaseField: React.FC<BaseFieldProps> = ({
     onValueChange(newValue);
   };
 
+  const handleDateChange = (newValue: string) => {
+    onValueChange(newValue);
+  };
+
   const renderField = () => {
     if (!isEditing) {
       // View mode - display value as text
+      const displayValue = () => {
+        if (field.type === 'checkbox') {
+          return value ? 'Yes' : 'No';
+        }
+        if (field.type === 'date' && value) {
+          // Format date for display
+          const date = new Date(value);
+          return date.toLocaleDateString();
+        }
+        return value || '-';
+      };
+
       return (
         <div className="text-sm text-gray-900 min-h-[2.25rem] flex items-center">
-          {field.type === 'checkbox' ? (value ? 'Yes' : 'No') : value || '-'}
+          {displayValue()}
         </div>
       );
     }
@@ -131,10 +148,18 @@ const BaseField: React.FC<BaseFieldProps> = ({
               checked={Boolean(value)}
               onCheckedChange={handleCheckboxChange}
             />
-            <Label htmlFor={field.id} className="text-sm font-normal">
-              {field.label}
-            </Label>
           </div>
+        );
+
+      case 'date':
+        return (
+          <DatePicker
+            {...commonProps}
+            value={value || ''}
+            placeholder={field.placeholder}
+            onChange={handleDateChange}
+            className={cn(hasError && 'border-red-500')}
+          />
         );
 
       default:
@@ -154,20 +179,17 @@ const BaseField: React.FC<BaseFieldProps> = ({
 
   return (
     <div className={cn(isEditing && 'space-y-2')}>
-      {/* Label - hide for checkbox as it's handled inside the checkbox component */}
-      {field.type !== 'checkbox' && (
-        <Label
-          htmlFor={field.id}
-          className={cn(
-            'text-sm font-medium text-gray-500 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70',
-            isRequired &&
-              isEditing &&
-              'after:content-["*"] after:ml-0.5 after:text-red-500'
-          )}
-        >
-          {field.label}
-        </Label>
-      )}
+      <Label
+        htmlFor={field.id}
+        className={cn(
+          'text-sm font-medium text-gray-500 leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70',
+          isRequired &&
+            isEditing &&
+            'after:content-["*"] after:ml-0.5 after:text-red-500'
+        )}
+      >
+        {field.label}
+      </Label>
 
       {/* Field */}
       {renderField()}

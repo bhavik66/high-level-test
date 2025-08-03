@@ -344,6 +344,24 @@
           "defaultValue": false
         },
         {
+          "id": "membership_start_date",
+          "label": "Membership Start Date",
+          "type": "date",
+          "placeholder": "Select start date",
+          "validation": [
+            {
+              "type": "required",
+              "errorMessage": "Membership start date is required"
+            },
+            {
+              "type": "minDate",
+              "value": "today",
+              "errorMessage": "Start date cannot be in the past"
+            }
+          ],
+          "ui": { "colSpan": 6 }
+        },
+        {
           "id": "user_role",
           "label": "User Role",
           "type": "dropdown",
