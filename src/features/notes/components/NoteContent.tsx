@@ -3,6 +3,7 @@ import { useVirtualizer } from '@tanstack/react-virtual';
 import React, { useCallback, useEffect, useRef } from 'react';
 import { notesService } from '../api/NotesService';
 import Note from './Note';
+import NoteSkeleton from './NoteSkeleton';
 
 interface NoteContentProps {
   className?: string;
@@ -124,13 +125,15 @@ const NoteContent: React.FC<NoteContentProps> = ({ className }) => {
                   className="mb-3"
                 >
                   {isLoaderRow ? (
-                    <div className="flex h-32 items-center justify-center">
-                      <div className="text-muted-foreground">
-                        {hasNextPage
-                          ? 'Loading more notes...'
-                          : 'No more notes to load'}
+                    hasNextPage ? (
+                      <NoteSkeleton />
+                    ) : (
+                      <div className="flex h-32 items-center justify-center">
+                        <div className="text-muted-foreground">
+                          No more notes to load
+                        </div>
                       </div>
-                    </div>
+                    )
                   ) : (
                     <Note content={note.content} timestamp={note.timestamp} />
                   )}

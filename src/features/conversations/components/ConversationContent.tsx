@@ -4,6 +4,7 @@ import React, { useCallback, useEffect, useRef } from 'react';
 import { conversationService } from '../api/ConversationService';
 import type { Message } from '../types';
 import EmailMessage from './EmailMessage';
+import MessageSkeleton from './MessageSkeleton';
 import WhatsAppMessage from './WhatsAppMessage';
 
 interface ConversationContentProps {
@@ -200,13 +201,15 @@ const ConversationContent: React.FC<ConversationContentProps> = ({
                   className="mb-6"
                 >
                   {isLoaderRow ? (
-                    <div className="flex h-32 items-center justify-center">
-                      <div className="text-muted-foreground text-sm">
-                        {isFetchingNextPage
-                          ? 'Loading older messages...'
-                          : 'Scroll up to load older messages'}
+                    isFetchingNextPage ? (
+                      <MessageSkeleton />
+                    ) : (
+                      <div className="flex h-32 items-center justify-center">
+                        <div className="text-muted-foreground text-sm">
+                          Scroll up to load older messages
+                        </div>
                       </div>
-                    </div>
+                    )
                   ) : message ? (
                     <MessageRenderer message={message} />
                   ) : null}
