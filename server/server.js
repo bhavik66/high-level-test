@@ -38,12 +38,6 @@ app.get('/api', (req, res) => {
     endpoints: {
       notes: {
         'GET /api/notes': 'Get paginated notes',
-        'GET /api/notes/search': 'Search notes',
-        'GET /api/notes/:id': 'Get note by ID',
-        'POST /api/notes': 'Create new note',
-        'PUT /api/notes/:id': 'Update note',
-        'DELETE /api/notes/:id': 'Delete note',
-        'GET /api/notes/stats/summary': 'Get notes statistics',
       },
       layout: {
         'GET /api/layout': 'Get main layout configuration',
