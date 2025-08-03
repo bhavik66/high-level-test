@@ -1,20 +1,18 @@
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from '@/components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import type { WhatsAppMessage as WhatsAppMessageType } from '../types';
 
-const WhatsAppMessage = () => {
+interface WhatsAppMessageProps {
+  message: WhatsAppMessageType;
+}
+
+const WhatsAppMessage = ({ message }: WhatsAppMessageProps) => {
   return (
     <div className="flex items-start gap-3 max-w-md">
       {/* Avatar with WhatsApp indicator */}
       <div className="relative flex-shrink-0">
         <Avatar className="w-12 h-12">
-          <AvatarImage
-            src="https://avatar.iran.liara.run/public"
-            alt="Olivia"
-          />
-          <AvatarFallback>O</AvatarFallback>
+          <AvatarImage src={message.sender.avatar} alt={message.sender.name} />
+          <AvatarFallback>{message.sender.initials}</AvatarFallback>
         </Avatar>
         {/* WhatsApp logo on bottom-right */}
         <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full flex items-center justify-center border-2 border-white">
@@ -38,15 +36,15 @@ const WhatsAppMessage = () => {
           }}
         >
           {/* Contact name */}
-          <div className="text-gray-700 text-sm">Olivia</div>
+          <div className="text-gray-700 text-sm">{message.sender.name}</div>
 
           {/* Message text */}
           <div className="text-gray-800 text-base leading-relaxed">
-            Please let me know
+            {message.content.text}
           </div>
 
           {/* Timestamp */}
-          <div className="text-sm text-gray-500">11:44 AM</div>
+          <div className="text-sm text-gray-500">{message.timestamp}</div>
         </div>
       </div>
     </div>
