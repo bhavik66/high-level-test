@@ -1,18 +1,14 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import React, { useCallback, useEffect, useRef } from 'react';
-import { fetchNotesPage } from '../api/notesApi';
+import { notesService } from '../api/NotesService';
 import Note from './Note';
 
 interface NoteContentProps {
-  searchQuery?: string;
   className?: string;
 }
 
-const NoteContent: React.FC<NoteContentProps> = ({
-  searchQuery,
-  className,
-}) => {
+const NoteContent: React.FC<NoteContentProps> = ({ className }) => {
   const parentRef = useRef<HTMLDivElement>(null);
 
   const {
@@ -24,8 +20,13 @@ const NoteContent: React.FC<NoteContentProps> = ({
     fetchNextPage,
     hasNextPage,
   } = useInfiniteQuery({
-    queryKey: ['notes', searchQuery],
-    queryFn: ({ pageParam }) => fetchNotesPage(20, pageParam),
+    queryKey: ['notes'],
+    queryFn: ({ pageParam }) => {
+      return notesService.fetchNotesPage({
+        limit: 20,
+        offset: pageParam,
+      });
+    },
     getNextPageParam: lastPage =>
       lastPage.hasMore ? lastPage.nextOffset : undefined,
     initialPageParam: 0,

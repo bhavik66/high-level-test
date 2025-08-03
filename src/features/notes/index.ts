@@ -1,6 +1,6 @@
 // Notes feature barrel export
-export { fetchNotesPage, searchNotesPage } from './api/notesApi';
-export type { NotesPage } from './api/notesApi';
+export { NotesService, notesService } from './api/NotesService';
+export type { FetchNotesParams, NotesPage } from './api/NotesService';
 export { default as NotesView, default } from './components/NotesView';
 export { generateNotes } from './data/generateNotes';
 export type { NoteData, NoteTagType } from './type';
