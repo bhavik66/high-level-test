@@ -1,7 +1,7 @@
 import {
   ToggleGroup,
   ToggleGroupItem,
-} from '@/shared/components/ui/toggle-group';
+} from '@/components/ui/toggle-group';
 
 const FieldsFilterTab = () => {
   return (

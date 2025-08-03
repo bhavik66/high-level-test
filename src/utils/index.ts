@@ -1,4 +1,4 @@
-// Utils barrel export
+// Application utilities barrel export
 export * from './debounce';
 export * from './formHelpers';
 export * from './layoutUtils';

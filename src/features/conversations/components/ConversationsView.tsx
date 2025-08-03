@@ -6,7 +6,7 @@ import {
   FeatureCardContent,
   FeatureCardFooter,
   FeatureCardHeader,
-} from '@/shared/components/containers';
+} from '@/components/containers';
 
 const ConversationsView = () => {
   return (

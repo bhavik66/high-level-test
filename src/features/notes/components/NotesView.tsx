@@ -2,7 +2,7 @@ import {
   FeatureCard,
   FeatureCardContent,
   FeatureCardHeader,
-} from '@/shared/components/containers';
+} from '@/components/containers';
 import NoteContent from './NoteContent';
 import NoteHeader from './NoteHeader';
 

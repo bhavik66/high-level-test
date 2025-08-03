@@ -1,55 +1,36 @@
-import { Suspense, useMemo } from 'react';
+import { Suspense } from 'react';
 
 // Internal imports
-import { ErrorBoundary } from '@/shared/components/error-boundary';
-import { LoadingFallback } from '@/shared/components/fallbacks';
-
-// JSON Config
-import layoutConfig from '@/assets/data/mainLayout.json';
+import { ErrorBoundary } from '@/components/error-boundary';
+import { LoadingFallback } from '@/components/fallbacks';
 
 // Types and constants
-import { componentMap } from '@/shared/constants/componentMap';
-import type { LayoutItem } from '@/shared/types/layoutTypes';
+import type { ComponentKey, LayoutItem } from '@/types/layoutTypes';
 
 // Utilities
-import { composeClasses, isValidLayoutItem } from '@/shared/utils/layoutUtils';
+import { cn } from '@/lib';
+import { composeClasses } from '@/utils';
+
+// ===============================
+// TYPES
+// ===============================
+interface ConfigurableGridLayoutProps {
+  onError?: (error: Error, componentName?: string) => void;
+  layoutConfig?: LayoutItem[];
+  componentRegistry: Record<
+    ComponentKey,
+    React.LazyExoticComponent<React.ComponentType<unknown>>
+  >;
+}
 
 // ===============================
 // CONFIGURABLE GRID LAYOUT COMPONENT
 // ===============================
 const ConfigurableGridLayout = ({
-  customConfig,
   onError,
-}: {
-  customConfig?: LayoutItem[];
-  onError?: (error: Error, componentName?: string) => void;
-} = {}) => {
-  // ===============================
-  // MEMOIZED CONFIGURATION
-  // ===============================
-  const layoutItems = useMemo(() => {
-    let items: LayoutItem[];
-
-    if (customConfig) {
-      items = customConfig;
-    } else {
-      // Use mainLayout.json
-      const parsedConfig = (
-        Array.isArray(layoutConfig)
-          ? layoutConfig.filter(isValidLayoutItem)
-          : []
-      ) as LayoutItem[];
-
-      items = parsedConfig.map((item, idx) => ({
-        ...item,
-        id: `layout-${idx}`,
-        visible: item.visible !== false,
-      }));
-    }
-
-    return items.filter(item => item.visible !== false);
-  }, [customConfig]);
-
+  layoutConfig,
+  componentRegistry,
+}: ConfigurableGridLayoutProps) => {
   // ===============================
   // ERROR HANDLER
   // ===============================
@@ -70,8 +51,8 @@ const ConfigurableGridLayout = ({
     <div className="h-full">
       {/* Main Layout Grid */}
       <div className={containerClasses}>
-        {layoutItems.map((item, idx) => {
-          const Component = componentMap[item.component];
+        {layoutConfig?.map((item, idx) => {
+          const Component = componentRegistry[item.component];
           const classes = composeClasses(item);
           const componentName = item.title || item.component;
 
@@ -80,7 +61,7 @@ const ConfigurableGridLayout = ({
               key={item.id || `${item.component}-${idx}`}
               componentName={componentName}
               fallback={(error, resetError, name) => (
-                <div className="h-full">
+                <div className={cn('h-full w-full', classes)}>
                   <button
                     onClick={() => {
                       resetError();

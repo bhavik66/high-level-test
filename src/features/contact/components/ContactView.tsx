@@ -2,7 +2,7 @@ import {
   FeatureCard,
   FeatureCardContent,
   FeatureCardHeader,
-} from '@/shared/components/containers';
+} from '@/components/containers';
 
 import ContactCard from '@/features/contact/components/ContactCard';
 import FieldsFilterTab from '@/features/contact/components/FieldsFilterTab';

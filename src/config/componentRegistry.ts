@@ -1,10 +1,10 @@
-import type { ComponentKey } from '@/shared/types/layoutTypes';
+import type { ComponentKey } from '@/types/layoutTypes';
 import { lazy } from 'react';
 
 // ===============================
-// DYNAMIC COMPONENT MAPPING
+// DYNAMIC COMPONENT REGISTRY
 // ===============================
-export const componentMap = {
+export const componentRegistry = {
   ContactView: lazy(() => import('@/features/contact')),
   ConversationsView: lazy(() => import('@/features/conversations')),
   NotesView: lazy(() => import('@/features/notes')),
@@ -20,5 +20,5 @@ export const getComponentDisplayName = (component: ComponentKey): string => {
 export const isValidComponent = (
   component: string
 ): component is ComponentKey => {
-  return component in componentMap;
+  return component in componentRegistry;
 };

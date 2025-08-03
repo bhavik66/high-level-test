@@ -3,8 +3,8 @@ import {
   CardContent,
   CardFooter,
   CardHeader,
-} from '@/shared/components/ui/card';
-import { ScrollArea } from '@/shared/components/ui/scroll-area';
+} from '@/components/ui/card';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 function FeatureCard({ children }: { children: React.ReactNode }) {
   return (

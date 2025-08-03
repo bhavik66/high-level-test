@@ -1,5 +1,5 @@
-import { ConfigurableFormRenderer } from '@/shared/components/dynamic-forms';
-import type { FormDefinition } from '@/shared/types/formTypes';
+import { ConfigurableFormRenderer } from '@/components/dynamic-forms';
+import type { FormDefinition } from '@/types/formTypes';
 import { useState } from 'react';
 
 // Import the form data

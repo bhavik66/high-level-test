@@ -1,5 +1,5 @@
 import { env } from '@/config/env';
-import { ApiClient } from '@/shared/api/clients';
+import { ApiClient } from '@/api/clients';
 import type { NoteData } from '../type';
 
 // Notes API response types

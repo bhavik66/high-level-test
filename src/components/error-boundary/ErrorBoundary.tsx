@@ -1,7 +1,7 @@
 import type {
   ErrorBoundaryProps,
   ErrorBoundaryState,
-} from '@/shared/types/errorTypes';
+} from '@/types/errorTypes';
 import { Component } from 'react';
 import { ErrorFallback } from './ErrorFallback';
 

@@ -2,7 +2,7 @@ import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from '@/shared/components/ui/avatar';
+} from '@/components/ui/avatar';
 
 const WhatsAppMessage = () => {
   return (

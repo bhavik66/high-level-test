@@ -1,16 +1,10 @@
 import { QueryProvider } from '@/providers';
-import { ConfigurableGridLayout } from '@/shared/components/layout';
+import { AppRouter } from '@/router/index.tsx';
 
 function App() {
-  const handleError = (error: Error, componentName?: string) => {
-    console.error('Layout error:', error, componentName);
-  };
-
   return (
     <QueryProvider>
-      <div className="p-2 sm:p-4 h-screen bg-gray-200">
-        <ConfigurableGridLayout onError={handleError} />
-      </div>
+      <AppRouter />
     </QueryProvider>
   );
 }

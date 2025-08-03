@@ -2,10 +2,10 @@ import {
   Avatar,
   AvatarFallback,
   AvatarImage,
-} from '@/shared/components/ui/avatar';
-import { Badge } from '@/shared/components/ui/badge';
-import { Button } from '@/shared/components/ui/button';
-import { Card, CardContent } from '@/shared/components/ui/card';
+} from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
 import { Maximize2, MoreHorizontal, ReplyIcon, Star } from 'lucide-react';
 
 const EmailMessage = () => {
