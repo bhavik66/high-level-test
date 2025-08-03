@@ -3,6 +3,7 @@ import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import conversationRoutes from './routes/conversationRoutes.js';
+import formRoutes from './routes/formRoutes.js';
 import layoutRoutes from './routes/layoutRoutes.js';
 import notesRoutes from './routes/notesRoutes.js';
 
@@ -19,6 +20,7 @@ app.use(express.static(path.join(__dirname, '..', 'dist'))); // Serve built Reac
 
 // API Routes
 app.use('/api/conversations', conversationRoutes);
+app.use('/api/forms', formRoutes);
 app.use('/api/notes', notesRoutes);
 app.use('/api/layout', layoutRoutes);
 
@@ -44,6 +46,14 @@ app.get('/api', (req, res) => {
         'POST /api/conversations/:id/messages':
           'Send a new message to conversation',
         'GET /api/conversations/:id': 'Get conversation metadata',
+      },
+      forms: {
+        'GET /api/forms/definition/:formId': 'Get form definition by ID',
+        'GET /api/forms/contact/:contactId': 'Get contact data by ID',
+        'PUT /api/forms/contact/:contactId': 'Update contact data',
+        'POST /api/forms/contact': 'Create new contact',
+        'GET /api/forms/contacts': 'Get all contacts',
+        'DELETE /api/forms/contact/:contactId': 'Delete contact',
       },
       notes: {
         'GET /api/notes': 'Get paginated notes',
