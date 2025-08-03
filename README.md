@@ -54,63 +54,51 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
+## Technologies Used
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+The project leverages the following main technologies and libraries:
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **React 19** – UI library
+- **TypeScript 5** – static typing
+- **Vite 7** – lightning-fast build tool and dev server
+- **Tailwind CSS 4** – utility-first styling
+- **Radix UI** – accessible primitive components
+- **TanStack React Query 5** – data-fetching & caching
+- **React Router 7** – client-side routing
+- **React Hook Form** – form state management
+- **Zod** – schema validation
+- **Express 4** – lightweight mock API server
+- **ESLint & Prettier** – linting and code formatting
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+Feel free to inspect `package.json` for the full list of dependencies.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
+## Running the Project Locally
+
+1. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+2. Start the Vite dev server:
+
+   ```bash
+   npm run dev
+   ```
+
+3. In a separate terminal, start the mock API server (optional but required for full functionality):
+
+   ```bash
+   npm run server:dev
+   ```
+
+4. Open http://localhost:5173 in your browser (default port). The Express server runs on http://localhost:3001.
+
+To create a production build and preview it locally:
+
+```bash
+npm run build      # build for production
+npm run preview    # locally preview production build
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x';
-import reactDom from 'eslint-plugin-react-dom';
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
+---
