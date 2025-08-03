@@ -5,8 +5,8 @@ export interface NoteData {
   timestamp: string;
 }
 
-// Tag type mapping for better type safety
-export type TagType =
+// Tag type mapping for notes feature
+export type NoteTagType =
   | 'primary'
   | 'secondary'
   | 'accent'
@@ -15,8 +15,8 @@ export type TagType =
   | 'warning'
   | 'error';
 
-// Tag styling configuration
-export const TAG_STYLES: Record<TagType, string> = {
+// Tag styling configuration for notes
+export const NOTE_TAG_STYLES: Record<NoteTagType, string> = {
   primary: 'text-blue-500 font-medium',
   secondary: 'text-green-500 font-medium',
   accent: 'text-amber-500 font-medium',

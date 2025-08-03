@@ -1,6 +1,4 @@
 import React, { useMemo } from 'react';
-import type { TagType } from '../type';
-import { TAG_STYLES } from '../type';
 
 // Type for parsed line
 export interface ParsedLine {
@@ -9,8 +7,23 @@ export interface ParsedLine {
   hasNextLine: boolean;
 }
 
+// Generic type for tag styles - can be extended by consumers
+export type TagStylesMap = Record<string, string>;
+
+// Hook configuration interface
+export interface UseContentParserConfig {
+  tagStyles?: TagStylesMap;
+  defaultTagStyle?: string;
+}
+
 // Custom hook for parsing content with tags
-export const useContentParser = (content: string): ParsedLine[] => {
+export const useContentParser = (
+  content: string,
+  config: UseContentParserConfig = {}
+): ParsedLine[] => {
+  const { tagStyles = {}, defaultTagStyle = 'text-gray-500 font-medium' } =
+    config;
+
   return useMemo(() => {
     const lines = content.split('\n');
 
@@ -29,7 +42,7 @@ export const useContentParser = (content: string): ParsedLine[] => {
         }
 
         // Add the tag with proper styling
-        const tagStyle = TAG_STYLES[tagType as TagType] || TAG_STYLES.primary;
+        const tagStyle = tagStyles[tagType] || defaultTagStyle;
         parts.push(
           <span key={`tag-${lineIndex}-${parts.length}`} className={tagStyle}>
             @{tagName}
@@ -50,5 +63,5 @@ export const useContentParser = (content: string): ParsedLine[] => {
         hasNextLine: lineIndex < lines.length - 1,
       };
     });
-  }, [content]);
+  }, [content, tagStyles, defaultTagStyle]);
 };

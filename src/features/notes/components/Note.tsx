@@ -1,6 +1,7 @@
 import { Card, CardContent } from '@/shared/components/ui/card';
+import { useContentParser, type ParsedLine } from '@/shared/hooks';
 import React from 'react';
-import { useContentParser, type ParsedLine } from '../hooks';
+import { NOTE_TAG_STYLES } from '../type';
 
 // Note component props
 interface NoteProps {
@@ -20,7 +21,10 @@ const ContentLine: React.FC<{
 );
 
 const Note: React.FC<NoteProps> = ({ content, timestamp, className = '' }) => {
-  const parsedLines = useContentParser(content);
+  const parsedLines = useContentParser(content, {
+    tagStyles: NOTE_TAG_STYLES,
+    defaultTagStyle: 'text-gray-500 font-medium',
+  });
 
   return (
     <Card
