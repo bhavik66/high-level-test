@@ -14,11 +14,6 @@ router.get('/messages', async (req, res) => {
     const offset = parseInt(req.query.offset) || 0;
     const conversationId = req.query.conversationId || 'conv_001';
 
-    // Simulate network delay
-    await new Promise(resolve =>
-      setTimeout(resolve, 200 + Math.random() * 300)
-    );
-
     // Simulate occasional network errors (3% chance)
     if (Math.random() < 0.03) {
       return res.status(500).json({
@@ -50,11 +45,6 @@ router.post('/:conversationId/messages', async (req, res) => {
   try {
     const { conversationId } = req.params;
     const messageData = req.body;
-
-    // Simulate network delay
-    await new Promise(resolve =>
-      setTimeout(resolve, 100 + Math.random() * 200)
-    );
 
     // Simulate occasional network errors (2% chance)
     if (Math.random() < 0.02) {
@@ -89,11 +79,6 @@ router.post('/:conversationId/messages', async (req, res) => {
 router.get('/:conversationId', async (req, res) => {
   try {
     const { conversationId } = req.params;
-
-    // Simulate network delay
-    await new Promise(resolve =>
-      setTimeout(resolve, 150 + Math.random() * 100)
-    );
 
     res.json({
       id: conversationId,

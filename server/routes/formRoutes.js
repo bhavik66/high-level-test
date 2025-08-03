@@ -15,11 +15,6 @@ router.get('/definition/:formId?', async (req, res) => {
   try {
     const formId = req.params.formId || 'contactForm';
 
-    // Simulate network delay
-    await new Promise(resolve =>
-      setTimeout(resolve, 100 + Math.random() * 200)
-    );
-
     // Simulate occasional network errors (3% chance)
     if (Math.random() < 0.03) {
       return res.status(500).json({
@@ -50,11 +45,6 @@ router.get('/definition/:formId?', async (req, res) => {
 router.get('/contact/:contactId?', async (req, res) => {
   try {
     const contactId = req.params.contactId || '1';
-
-    // Simulate network delay
-    await new Promise(resolve =>
-      setTimeout(resolve, 150 + Math.random() * 200)
-    );
 
     // Simulate occasional network errors (3% chance)
     if (Math.random() < 0.03) {
@@ -88,11 +78,6 @@ router.put('/contact/:contactId', async (req, res) => {
     const contactId = req.params.contactId;
     const formData = req.body;
 
-    // Simulate network delay
-    await new Promise(resolve =>
-      setTimeout(resolve, 200 + Math.random() * 300)
-    );
-
     // Simulate occasional network errors (2% chance)
     if (Math.random() < 0.02) {
       return res.status(500).json({
@@ -125,11 +110,6 @@ router.post('/contact', async (req, res) => {
   try {
     const formData = req.body;
 
-    // Simulate network delay
-    await new Promise(resolve =>
-      setTimeout(resolve, 250 + Math.random() * 300)
-    );
-
     // Simulate occasional network errors (2% chance)
     if (Math.random() < 0.02) {
       return res.status(500).json({
@@ -153,11 +133,6 @@ router.post('/contact', async (req, res) => {
 // GET /api/forms/contacts - Get all contacts
 router.get('/contacts', async (req, res) => {
   try {
-    // Simulate network delay
-    await new Promise(resolve =>
-      setTimeout(resolve, 200 + Math.random() * 300)
-    );
-
     // Simulate occasional network errors (3% chance)
     if (Math.random() < 0.03) {
       return res.status(500).json({
@@ -182,11 +157,6 @@ router.get('/contacts', async (req, res) => {
 router.delete('/contact/:contactId', async (req, res) => {
   try {
     const contactId = req.params.contactId;
-
-    // Simulate network delay
-    await new Promise(resolve =>
-      setTimeout(resolve, 150 + Math.random() * 200)
-    );
 
     // Simulate occasional network errors (2% chance)
     if (Math.random() < 0.02) {

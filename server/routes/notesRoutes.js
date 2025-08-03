@@ -12,11 +12,6 @@ router.get('/', async (req, res) => {
     const limit = parseInt(req.query.limit) || 20;
     const offset = parseInt(req.query.offset) || 0;
 
-    // Simulate network delay
-    await new Promise(resolve =>
-      setTimeout(resolve, 300 + Math.random() * 200)
-    );
-
     // Simulate occasional network errors (5% chance)
     if (Math.random() < 0.05) {
       return res.status(500).json({

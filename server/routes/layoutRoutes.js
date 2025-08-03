@@ -33,11 +33,6 @@ const mainLayout = [
 // GET /api/layout - Get main layout configuration
 router.get('/', async (req, res) => {
   try {
-    // Simulate network delay
-    await new Promise(resolve =>
-      setTimeout(resolve, 200 + Math.random() * 100)
-    );
-
     // Simulate occasional network errors (3% chance)
     if (Math.random() < 0.03) {
       return res.status(500).json({
@@ -58,11 +53,6 @@ router.get('/', async (req, res) => {
 // GET /api/layout/main - Alternative endpoint for main layout
 router.get('/main', async (req, res) => {
   try {
-    // Simulate network delay
-    await new Promise(resolve =>
-      setTimeout(resolve, 150 + Math.random() * 100)
-    );
-
     res.json({
       layout: mainLayout,
       timestamp: new Date().toISOString(),
