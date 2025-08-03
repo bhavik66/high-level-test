@@ -25,6 +25,7 @@ const DynamicFormDisplay: React.FC = () => {
         formDefinition={formDefinitionData as FormDefinition}
         values={formValues}
         onValuesChange={handleValuesChange}
+        performanceMode="development"
       />
     </div>
   );

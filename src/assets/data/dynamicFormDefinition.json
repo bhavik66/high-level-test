@@ -197,7 +197,7 @@
           "type": "dropdown",
           "options": ["California", "New York", "Texas", "Florida", "Illinois"],
           "visibility": {
-            "dependsOn": "country",
+            "dependsOn": "contact_info.country",
             "valueNotEmpty": true
           },
           "validation": [

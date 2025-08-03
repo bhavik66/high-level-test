@@ -1,5 +1,6 @@
 /**
  * Form helper utilities for dynamic form system
+ * Production-optimized with caching and performance enhancements
  */
 
 import type {
@@ -12,6 +13,82 @@ import type {
   OpenedGroups,
 } from '../types/formTypes';
 import { validateField as validateFieldWithRules } from './validation';
+
+// Cache for memoized operations
+const memoCache = new Map<string, any>();
+const CACHE_SIZE_LIMIT = 1000;
+
+// Performance-optimized cache management
+const manageCacheSize = () => {
+  if (memoCache.size > CACHE_SIZE_LIMIT) {
+    // Remove oldest entries (first 100)
+    const keysToDelete = Array.from(memoCache.keys()).slice(0, 100);
+    keysToDelete.forEach(key => memoCache.delete(key));
+  }
+};
+
+// Memoized converter factory
+export const createMemoizedConverter = () => {
+  return {
+    toFormData: (
+      values: Record<string, any>,
+      formDefinition: FormDefinition
+    ): FormData => {
+      const cacheKey = `toFormData-${JSON.stringify(values)}-${formDefinition.groups?.length || 0}`;
+
+      if (memoCache.has(cacheKey)) {
+        return memoCache.get(cacheKey);
+      }
+
+      const result = convertToFormData(values, formDefinition);
+      memoCache.set(cacheKey, result);
+      manageCacheSize();
+
+      return result;
+    },
+
+    toFlatValues: (formData: FormData): Record<string, any> => {
+      const cacheKey = `toFlatValues-${JSON.stringify(formData)}`;
+
+      if (memoCache.has(cacheKey)) {
+        return memoCache.get(cacheKey);
+      }
+
+      const result = convertToFlatValues(formData);
+      memoCache.set(cacheKey, result);
+      manageCacheSize();
+
+      return result;
+    },
+  };
+};
+
+// Field visibility cache factory
+export const createFieldVisibilityCache = () => {
+  const visibilityCache = new Map<string, boolean>();
+
+  return {
+    get: (fieldId: string, formData: FormData): boolean | undefined => {
+      const cacheKey = `${fieldId}-${JSON.stringify(formData)}`;
+      return visibilityCache.get(cacheKey);
+    },
+
+    set: (fieldId: string, formData: FormData, isVisible: boolean): void => {
+      const cacheKey = `${fieldId}-${JSON.stringify(formData)}`;
+      visibilityCache.set(cacheKey, isVisible);
+
+      // Manage cache size for performance
+      if (visibilityCache.size > 500) {
+        const keysToDelete = Array.from(visibilityCache.keys()).slice(0, 100);
+        keysToDelete.forEach(key => visibilityCache.delete(key));
+      }
+    },
+
+    clear: (): void => {
+      visibilityCache.clear();
+    },
+  };
+};
 
 // ============================================================================
 // FORM STATE INITIALIZATION
