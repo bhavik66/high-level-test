@@ -54,6 +54,14 @@ Currently, two official plugins are available:
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
 - [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
+## Documentation
+
+Detailed documentation about various aspects of the project can be found in the `docs/` directory:
+
+- [Project Architecture](docs/project-architecture.md) - Overview of the project structure and design decisions
+- [Dynamic Contact Form](docs/dynamic-contact-form.md) - Documentation for the configurable form system
+- [Dynamic Layout](docs/dynamic-layout.md) - Guide to using the dynamic layout components
+
 ## Technologies Used
 
 The project leverages the following main technologies and libraries:
