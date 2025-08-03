@@ -40,7 +40,6 @@ const DatePicker = React.forwardRef<HTMLButtonElement, DatePickerProps>(
       min,
       max,
       disabled,
-      required,
       ...props
     },
     ref
