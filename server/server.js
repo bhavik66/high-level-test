@@ -2,6 +2,7 @@ import cors from 'cors';
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import conversationRoutes from './routes/conversationRoutes.js';
 import layoutRoutes from './routes/layoutRoutes.js';
 import notesRoutes from './routes/notesRoutes.js';
 
@@ -17,6 +18,7 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, '..', 'dist'))); // Serve built React app
 
 // API Routes
+app.use('/api/conversations', conversationRoutes);
 app.use('/api/notes', notesRoutes);
 app.use('/api/layout', layoutRoutes);
 
@@ -33,9 +35,16 @@ app.get('/api/health', (req, res) => {
 // API info endpoint
 app.get('/api', (req, res) => {
   res.json({
-    name: 'Notes API',
+    name: 'High Level API',
     version: '1.0.0',
     endpoints: {
+      conversations: {
+        'GET /api/conversations/messages':
+          'Get paginated conversation messages',
+        'POST /api/conversations/:id/messages':
+          'Send a new message to conversation',
+        'GET /api/conversations/:id': 'Get conversation metadata',
+      },
       notes: {
         'GET /api/notes': 'Get paginated notes',
       },

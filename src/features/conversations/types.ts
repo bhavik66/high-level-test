@@ -46,3 +46,18 @@ export interface Conversation {
 export interface ConversationData {
   conversation: Conversation;
 }
+
+// API pagination types
+export interface MessagesPage {
+  messages: Message[];
+  nextOffset: number;
+  hasMore: boolean;
+  total: number;
+  conversationId: string;
+}
+
+export interface FetchMessagesParams {
+  conversationId?: string;
+  limit?: number;
+  offset?: number;
+}
