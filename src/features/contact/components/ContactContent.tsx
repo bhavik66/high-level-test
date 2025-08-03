@@ -9,7 +9,7 @@ const ContactContent = () => {
     loading: formDefinitionLoading,
     error: formDefinitionError,
     refetch: refetchFormDefinition,
-  } = useFormDefinition('contact-form');
+  } = useFormDefinition('contactForm');
 
   const {
     formValues,
@@ -19,7 +19,7 @@ const ContactContent = () => {
     error: contactDataError,
     isSaving,
     refetch: refetchContactData,
-  } = useContactData('contact-1');
+  } = useContactData('1');
 
   const handleValuesChange = async (newValues: Record<string, unknown>) => {
     console.log('Form values changed:', newValues);
