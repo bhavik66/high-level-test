@@ -4,6 +4,7 @@ import { generateAlternatingMessages } from '../data/conversationData.js';
 const router = express.Router();
 
 // Generate all messages once to simulate a database
+// Messages are stored in chronological order (oldest first)
 const ALL_MESSAGES = generateAlternatingMessages(200); // Production-ready number of messages
 
 // GET /api/conversations/messages - Fetch paginated conversation messages
@@ -25,6 +26,8 @@ router.get('/messages', async (req, res) => {
       });
     }
 
+    // For chat-like pagination, we want to return messages in chronological order
+    // Client will reverse them for display (newest at bottom)
     const startIndex = offset * limit;
     const endIndex = startIndex + limit;
     const messages = ALL_MESSAGES.slice(startIndex, endIndex);

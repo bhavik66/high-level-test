@@ -1,12 +1,12 @@
-import ConversationContent from '@/features/conversations/components/ConversationContent';
-import ConversationFooter from '@/features/conversations/components/ConversationFooter';
-import ConversationHeader from '@/features/conversations/components/ConversationHeader';
 import {
   FeatureCard,
   FeatureCardContent,
   FeatureCardFooter,
   FeatureCardHeader,
 } from '@/components/containers';
+import ConversationContent from '@/features/conversations/components/ConversationContent';
+import ConversationFooter from '@/features/conversations/components/ConversationFooter';
+import ConversationHeader from '@/features/conversations/components/ConversationHeader';
 
 const ConversationsView = () => {
   return (
@@ -14,7 +14,7 @@ const ConversationsView = () => {
       <FeatureCardHeader>
         <ConversationHeader />
       </FeatureCardHeader>
-      <FeatureCardContent>
+      <FeatureCardContent scrollable={false}>
         <ConversationContent />
       </FeatureCardContent>
       <FeatureCardFooter>

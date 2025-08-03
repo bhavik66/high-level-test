@@ -108,29 +108,37 @@ const WHATSAPP_MESSAGES = [
   'Thanks for the quick response!',
 ];
 
-const TIMESTAMPS = [
-  '2 min ago',
-  '5 min ago',
-  '10 min ago',
-  '15 min ago',
-  '30 min ago',
-  '1 hour ago',
-  '2 hours ago',
-  '3 hours ago',
-  '1 day ago',
-  '2 days ago',
-  '1 week ago',
-  '2 weeks ago',
-];
+// Generate more realistic progressive timestamps (older first)
+function generateTimestamp(index, total) {
+  const now = new Date();
+  const hoursAgo = Math.floor((total - index) / 10) + Math.random() * 5;
+  const messageTime = new Date(now.getTime() - hoursAgo * 60 * 60 * 1000);
+
+  const diffMs = now - messageTime;
+  const diffMins = Math.floor(diffMs / (1000 * 60));
+  const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+  if (diffMins < 60) {
+    return diffMins <= 1 ? 'Just now' : `${diffMins} min ago`;
+  } else if (diffHours < 24) {
+    return diffHours === 1 ? '1 hour ago' : `${diffHours} hours ago`;
+  } else if (diffDays < 7) {
+    return diffDays === 1 ? '1 day ago' : `${diffDays} days ago`;
+  } else {
+    const diffWeeks = Math.floor(diffDays / 7);
+    return diffWeeks === 1 ? '1 week ago' : `${diffWeeks} weeks ago`;
+  }
+}
 
 function getRandomItem(array) {
   return array[Math.floor(Math.random() * array.length)];
 }
 
-function generateMessage(id, type = null) {
+function generateMessage(id, type = null, index = 0, total = 100) {
   const messageType = type || (Math.random() > 0.5 ? 'email' : 'whatsapp');
   const sender = getRandomItem(PARTICIPANTS);
-  const timestamp = getRandomItem(TIMESTAMPS);
+  const timestamp = generateTimestamp(index, total);
 
   const baseMessage = {
     id: `msg_${id}`,
@@ -184,7 +192,12 @@ export function generateMessages(count = 500) {
   const messages = [];
 
   for (let i = 0; i < count; i++) {
-    const message = generateMessage(String(i + 1).padStart(3, '0'));
+    const message = generateMessage(
+      String(i + 1).padStart(3, '0'),
+      null,
+      i,
+      count
+    );
     messages.push(message);
   }
 
@@ -203,7 +216,9 @@ export function generateAlternatingMessages(count = 500) {
     const messageType = i % 3 === 0 ? 'whatsapp' : 'email'; // 1/3 WhatsApp, 2/3 Email
     const message = generateMessage(
       String(i + 1).padStart(3, '0'),
-      messageType
+      messageType,
+      i,
+      count
     );
     messages.push(message);
   }

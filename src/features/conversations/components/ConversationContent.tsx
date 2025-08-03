@@ -52,34 +52,51 @@ const ConversationContent: React.FC<ConversationContentProps> = ({
     gcTime: 5 * 60 * 1000, // 5 minutes
   });
 
-  // Flatten all pages into a single array
-  const allMessages = data ? data.pages.flatMap(page => page.messages) : [];
+  // Flatten all pages into a single array and reverse for chat-like display
+  // Newest messages at bottom, oldest at top
+  const allMessages = data
+    ? data.pages.flatMap(page => page.messages).reverse()
+    : [];
 
   const virtualizer = useVirtualizer({
     count: hasNextPage ? allMessages.length + 1 : allMessages.length,
     getScrollElement: () => parentRef.current,
     estimateSize: () => 200, // Slightly larger estimate for message components
     overscan: 3, // Fewer items to overscan since messages are larger
+    initialOffset: () => {
+      // Start at bottom for chat-like behavior
+      const element = parentRef.current;
+      if (element) {
+        return element.scrollHeight - element.clientHeight;
+      }
+      return 0;
+    },
   });
 
   const items = virtualizer.getVirtualItems();
   const fetchTriggeredRef = useRef(false);
 
-  // Stable fetch function to prevent vibration
+  // Track scroll position for maintaining position after loading older messages
+  const previousScrollHeightRef = useRef(0);
+  const shouldMaintainPositionRef = useRef(false);
+
+  // Stable fetch function for loading older messages when scrolling up
   const handleFetch = useCallback(() => {
     if (!hasNextPage || isFetchingNextPage || fetchTriggeredRef.current) {
       return;
     }
 
-    const [lastItem] = [...items].reverse();
-    if (!lastItem) {
-      return;
-    }
+    const scrollElement = parentRef.current;
+    if (!scrollElement) return;
 
-    const threshold = 2; // Smaller threshold for conversations
-    const shouldFetch = lastItem.index >= allMessages.length - threshold;
+    // Check if we're near the top (loading older messages)
+    const threshold = 200; // pixels from top
+    const shouldFetch = scrollElement.scrollTop <= threshold;
 
-    if (shouldFetch) {
+    if (shouldFetch && items.length > 0) {
+      // Store current scroll height to maintain position
+      previousScrollHeightRef.current = scrollElement.scrollHeight;
+      shouldMaintainPositionRef.current = true;
       fetchTriggeredRef.current = true;
       fetchNextPage().finally(() => {
         // Reset flag after fetch completes
@@ -88,19 +105,50 @@ const ConversationContent: React.FC<ConversationContentProps> = ({
         }, 1000);
       });
     }
-  }, [
-    hasNextPage,
-    isFetchingNextPage,
-    items,
-    allMessages.length,
-    fetchNextPage,
-  ]);
+  }, [hasNextPage, isFetchingNextPage, items.length, fetchNextPage]);
 
-  // Debounced effect to prevent rapid triggers
+  // Effect to maintain scroll position after loading older messages
   useEffect(() => {
-    const timeoutId = setTimeout(handleFetch, 100);
-    return () => clearTimeout(timeoutId);
+    const scrollElement = parentRef.current;
+    if (shouldMaintainPositionRef.current && scrollElement) {
+      const newScrollHeight = scrollElement.scrollHeight;
+      const heightDifference =
+        newScrollHeight - previousScrollHeightRef.current;
+
+      if (heightDifference > 0) {
+        scrollElement.scrollTop = scrollElement.scrollTop + heightDifference;
+      }
+
+      shouldMaintainPositionRef.current = false;
+    }
+  }, [allMessages.length]);
+
+  // Scroll-based fetch trigger
+  useEffect(() => {
+    const scrollElement = parentRef.current;
+    if (!scrollElement) return;
+
+    const handleScroll = () => {
+      handleFetch();
+    };
+
+    scrollElement.addEventListener('scroll', handleScroll, { passive: true });
+    return () => scrollElement.removeEventListener('scroll', handleScroll);
   }, [handleFetch]);
+
+  // Initial scroll to bottom when first loading
+  useEffect(() => {
+    if (status === 'success' && allMessages.length > 0) {
+      const scrollElement = parentRef.current;
+      if (scrollElement && (!data?.pages?.length || data.pages.length === 1)) {
+        // Only auto-scroll on initial load, not on subsequent page loads
+        setTimeout(() => {
+          scrollElement.scrollTop =
+            scrollElement.scrollHeight - scrollElement.clientHeight;
+        }, 50);
+      }
+    }
+  }, [status, allMessages.length, data?.pages?.length]);
 
   if (status === 'pending') {
     return (
@@ -137,8 +185,12 @@ const ConversationContent: React.FC<ConversationContentProps> = ({
             }}
           >
             {items.map(virtualItem => {
-              const isLoaderRow = virtualItem.index > allMessages.length - 1;
-              const message = allMessages[virtualItem.index];
+              // For chat-like behavior, loader should be at the top (index 0)
+              const isLoaderRow = virtualItem.index === 0 && hasNextPage;
+              const messageIndex = hasNextPage
+                ? virtualItem.index - 1
+                : virtualItem.index;
+              const message = allMessages[messageIndex];
 
               return (
                 <div
@@ -149,15 +201,15 @@ const ConversationContent: React.FC<ConversationContentProps> = ({
                 >
                   {isLoaderRow ? (
                     <div className="flex h-32 items-center justify-center">
-                      <div className="text-muted-foreground">
-                        {hasNextPage
-                          ? 'Loading more messages...'
-                          : 'No more messages to load'}
+                      <div className="text-muted-foreground text-sm">
+                        {isFetchingNextPage
+                          ? 'Loading older messages...'
+                          : 'Scroll up to load older messages'}
                       </div>
                     </div>
-                  ) : (
+                  ) : message ? (
                     <MessageRenderer message={message} />
-                  )}
+                  ) : null}
                 </div>
               );
             })}
