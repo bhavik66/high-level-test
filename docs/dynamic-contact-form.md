@@ -168,13 +168,126 @@ The save call is **debounced by developer discretion** (currently immediate, can
 
 ---
 
-## 9. Error boundaries
+## 9. Form Definition JSON Structure
+
+The form definition is a JSON object that describes the entire structure and behavior of the form. Here's a comprehensive example of a user registration form that demonstrates the key features:
+
+```json
+{
+  "formDefinition": {
+    "schemaVersion": 1,
+    "title": "User Registration Wizard",
+    "description": "Production-grade example demonstrating advanced features for dynamic form rendering.",
+    "groups": [
+      {
+        "id": "personal_info",
+        "label": "Personal Information",
+        "fields": [
+          {
+            "id": "first_name",
+            "label": "First Name",
+            "type": "text",
+            "placeholder": "John",
+            "validation": [
+              {
+                "type": "required",
+                "errorMessage": "First name is required"
+              },
+              {
+                "type": "minLength",
+                "value": 2,
+                "errorMessage": "First name must be at least 2 characters"
+              },
+              {
+                "type": "maxLength",
+                "value": 50,
+                "errorMessage": "First name cannot exceed 50 characters"
+              }
+            ]
+          }
+          // ... other personal info fields
+        ]
+      },
+      {
+        "id": "contact_info",
+        "label": "Contact Information",
+        "fields": [
+          // ... contact info fields
+        ]
+      }
+    ]
+  }
+}
+```
+
+### Key Concepts
+
+1. **Form Structure**
+   - `schemaVersion`: Version control for backward compatibility
+   - `title` & `description`: Form metadata
+   - `groups`: Array of field groups for logical organization
+
+2. **Field Groups**
+   - `id`: Unique identifier for the group
+   - `label`: Display name
+   - `fields`: Array of form fields
+
+3. **Field Types**
+   - `text`: Basic text input
+   - `textarea`: Multi-line text
+   - `email`: Email validation
+   - `tel`: Phone numbers
+   - `date`: Date picker
+   - `dropdown`: Select from options
+   - `radio`: Radio button group
+   - See [Field rendering matrix](#8-field-rendering-matrix) for complete list
+
+4. **Validation Rules**
+
+   ```json
+   "validation": [
+       {
+           "type": "required | minLength | maxLength | pattern | email | ...",
+           "value": "optional value for the rule",
+           "errorMessage": "User-friendly error message"
+       }
+   ]
+   ```
+
+5. **Visibility Rules**
+
+   ```json
+   "visibility": {
+       "dependsOn": "other_field_id",
+       "value": "specific value" | "valueNotEmpty": true
+   }
+   ```
+
+6. **UI Customization**
+   ```json
+   "ui": {
+       "colSpan": "lg:col-span-2",
+       "rows": 4  // for textarea
+   }
+   ```
+
+### Usage Flow
+
+1. The form definition is stored on the server and fetched via `ContactService.fetchFormDefinition`
+2. `useFormDefinition` hook manages caching and refetching
+3. `zodSchemaGenerator` converts validation rules to Zod schema
+4. `ConfigurableFormRenderer` renders the form based on the definition
+5. `useDynamicForm` handles state management and validation
+
+---
+
+## 10. Error boundaries
 
 `FormErrorBoundary` (optional wrapper) prevents a faulty field widget from crashing the entire page and enables **retry / reset**.
 
 ---
 
-## 10. Extending the form system
+## 11. Extending the form system
 
 1. **Add new field type**: create a wrapper component under `src/components/dynamic-forms/` (or a dedicated `src/components/custom-fields/`) that composes the necessary shadcn UI primitives (located in `src/components/ui/`). **Do not modify files inside `src/components/ui/`** – they are generated shadcn components. After adding the wrapper, extend the `FormField` switch statement and `zodSchemaGenerator` so the new type is rendered and validated.
 2. **Add new validation rule**: update `FieldValidationRule` enum and extend `applyValidationRules`.

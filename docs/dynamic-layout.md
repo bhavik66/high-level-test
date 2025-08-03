@@ -85,18 +85,53 @@ interface LayoutItem {
 ### Example payload returned by `/layout/main`
 
 ```json
-[
-  {
-    "component": "ContactView",
-    "className": "h-full",
-    "responsive": {
-      "base": "col-span-12 mb-4 md:col-span-4 lg:col-span-3"
+{
+  "layout": [
+    {
+      "component": "ContactView",
+      "className": "h-full",
+      "visible": true,
+      "responsive": {
+        "base": "col-span-12 mb-4 md:col-span-4 md:mb-0 lg:col-span-3"
+      }
+    },
+    {
+      "component": "ConversationsView",
+      "className": "h-full overflow-y-auto",
+      "visible": true,
+      "responsive": {
+        "base": "col-span-12 mb-4 md:col-span-8 md:mb-0 lg:col-span-6"
+      }
+    },
+    {
+      "component": "NotesView",
+      "className": "h-full",
+      "visible": true,
+      "responsive": {
+        "base": "col-span-12 md:col-span-12 lg:col-span-3"
+      }
     }
-  },
-  { "component": "ConversationsView", … },
-  { "component": "NotesView", … }
-]
+  ],
+  "timestamp": "2025-08-03T20:54:42.033Z",
+  "version": "1.0.0"
+}
 ```
+
+This example demonstrates:
+
+1. **Responsive Grid Layout**
+   - Each component spans full width on mobile (`col-span-12`)
+   - Tablet layout (`md:`): Contact (4/12), Conversations (8/12), Notes (12/12)
+   - Desktop layout (`lg:`): Contact (3/12), Conversations (6/12), Notes (3/12)
+
+2. **Component Properties**
+   - `className`: Base styles like height and overflow behavior
+   - `visible`: Feature flag for conditional rendering
+   - `responsive`: Breakpoint-specific Tailwind classes
+
+3. **Metadata**
+   - `timestamp`: When the layout was last updated
+   - `version`: Layout definition schema version
 
 ---
 
