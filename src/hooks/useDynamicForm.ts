@@ -77,7 +77,7 @@ export function useDynamicForm({
   formDefinition,
   initialValues = {},
   onValuesChange,
-  mode = 'onBlur',
+  mode = 'onChange',
 }: UseDynamicFormProps): UseDynamicFormReturn {
   // Generate Zod schema from form definition
   const zodSchema = useMemo(() => {

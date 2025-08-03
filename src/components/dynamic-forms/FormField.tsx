@@ -109,6 +109,7 @@ const FormField: React.FC<FormFieldProps> = memo(
     const renderFieldContent = (
       fieldValue: unknown,
       onChange: (value: unknown) => void,
+      onBlur?: () => void,
       error?: string
     ) => {
       const hasError = Boolean(error);
@@ -151,6 +152,7 @@ const FormField: React.FC<FormFieldProps> = memo(
               placeholder={field.placeholder}
               rows={field.ui?.rows || 3}
               onChange={e => onChange(e.target.value)}
+              onBlur={onBlur}
               className={cn(hasError && 'border-red-500')}
             />
           );
@@ -233,6 +235,7 @@ const FormField: React.FC<FormFieldProps> = memo(
               value={(fieldValue as string) || ''}
               placeholder={field.placeholder}
               onChange={e => onChange(e.target.value)}
+              onBlur={onBlur}
               className={cn(hasError && 'border-red-500')}
             />
           );
@@ -254,6 +257,7 @@ const FormField: React.FC<FormFieldProps> = memo(
               {renderFieldContent(
                 controllerField.value,
                 controllerField.onChange,
+                controllerField.onBlur,
                 fieldState.error?.message
               )}
               {/* Display error message */}
