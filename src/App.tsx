@@ -1,4 +1,4 @@
-import { QueryProvider } from '@/app/providers';
+import { QueryProvider } from '@/providers';
 import { ConfigurableGridLayout } from '@/shared/components/layout';
 
 function App() {
