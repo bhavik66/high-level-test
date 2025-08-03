@@ -21,14 +21,14 @@ import { Button } from '../ui/button';
 import FieldGroup from './FieldGroup';
 import FormField from './FormField';
 
-interface DynamicFormRendererProps {
+interface ConfigurableFormRendererProps {
   formDefinition: FormDefinition;
   values: Record<string, unknown>;
   onValuesChange: (values: Record<string, unknown>) => void;
   performanceMode?: 'development' | 'production';
 }
 
-const ConfigurableFormRenderer: React.FC<DynamicFormRendererProps> = memo(
+const ConfigurableFormRenderer: React.FC<ConfigurableFormRendererProps> = memo(
   ({
     formDefinition,
     values,

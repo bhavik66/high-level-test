@@ -1,17 +1,17 @@
 /**
- * BaseGroup component with smooth collapsible functionality
+ * FieldGroup component with smooth collapsible functionality
  */
 
 import { ChevronDown } from 'lucide-react';
 import React from 'react';
-import type { BaseGroupProps } from '../../types/formTypes';
+import type { FieldGroupProps } from '../../types/formTypes';
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
 } from '../ui/collapsible';
 
-const FieldGroup: React.FC<BaseGroupProps> = ({
+const FieldGroup: React.FC<FieldGroupProps> = ({
   group,
   isOpen,
   onToggle,

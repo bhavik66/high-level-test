@@ -121,7 +121,7 @@ export interface GlobalValidationRule {
 // COMPONENT PROPS TYPES
 // ============================================================================
 
-export interface BaseFieldProps {
+export interface FormFieldProps {
   field: FieldDefinition;
   value: any;
   isEditing: boolean;
@@ -140,7 +140,7 @@ export interface BaseInputProps {
   onBlur: () => void;
 }
 
-export interface BaseGroupProps {
+export interface FieldGroupProps {
   group: GroupDefinition;
   isOpen: boolean;
   onToggle: () => void;

@@ -1,5 +1,5 @@
 /**
- * BaseField component - Production-optimized field renderer with react-hook-form integration
+ * FormField component - Production-optimized field renderer with react-hook-form integration
  * Features:
  * - React Hook Form Controller integration for optimal performance
  * - Maintains existing UI/UX while leveraging RHF benefits
@@ -27,7 +27,7 @@ import {
 } from '../ui/select';
 import { Textarea } from '../ui/textarea';
 
-export interface BaseFieldProps {
+export interface FormFieldProps {
   field: FieldDefinition;
   control: Control<FieldValues>;
   isEditing: boolean;
@@ -39,7 +39,7 @@ export interface BaseFieldProps {
 }
 
 // Performance-optimized FormField with react-hook-form integration
-const FormField: React.FC<BaseFieldProps> = memo(
+const FormField: React.FC<FormFieldProps> = memo(
   ({
     field,
     control,
