@@ -6,8 +6,6 @@
     {
       "id": "personal_info",
       "label": "Personal Information",
-      "description": "Tell us a bit about yourself",
-      "ui": { "icon": "user", "columns": 12 },
       "fields": [
         {
           "id": "first_name",
@@ -29,8 +27,7 @@
               "value": 50,
               "errorMessage": "First name cannot exceed 50 characters"
             }
-          ],
-          "ui": { "colSpan": 6 }
+          ]
         },
         {
           "id": "last_name",
@@ -52,8 +49,7 @@
               "value": 50,
               "errorMessage": "Last name cannot exceed 50 characters"
             }
-          ],
-          "ui": { "colSpan": 6 }
+          ]
         },
         {
           "id": "bio",
@@ -67,7 +63,10 @@
               "errorMessage": "Biography cannot exceed 500 characters"
             }
           ],
-          "ui": { "colSpan": 12, "rows": 4 }
+          "ui": {
+            "colSpan": "lg:col-span-2",
+            "rows": 4
+          }
         },
         {
           "id": "dob",
@@ -88,8 +87,7 @@
               "value": 18,
               "errorMessage": "User must be at least 18 years old"
             }
-          ],
-          "ui": { "colSpan": 6 }
+          ]
         },
         {
           "id": "gender",
@@ -101,8 +99,7 @@
               "type": "required",
               "errorMessage": "Please select a gender"
             }
-          ],
-          "ui": { "colSpan": 6 }
+          ]
         },
         {
           "id": "marital_status",
@@ -114,8 +111,7 @@
               "type": "required",
               "errorMessage": "Please select your marital status"
             }
-          ],
-          "ui": { "colSpan": 12 }
+          ]
         },
         {
           "id": "spouse_name",
@@ -136,8 +132,7 @@
               "value": 50,
               "errorMessage": "Spouse name cannot exceed 50 characters"
             }
-          ],
-          "ui": { "colSpan": 12 }
+          ]
         }
       ]
     },
@@ -145,8 +140,6 @@
     {
       "id": "contact_info",
       "label": "Contact Information",
-      "description": "How can we reach you?",
-      "ui": { "icon": "mail", "columns": 12 },
       "fields": [
         {
           "id": "email",
@@ -163,7 +156,7 @@
               "errorMessage": "Please enter a valid email address"
             }
           ],
-          "ui": { "colSpan": 6 }
+          "ui": { "colSpan": "lg:col-span-2" }
         },
         {
           "id": "phone",
@@ -177,7 +170,7 @@
               "errorMessage": "Please enter a valid phone number"
             }
           ],
-          "ui": { "colSpan": 6 }
+          "ui": { "colSpan": "lg:col-span-2" }
         },
         {
           "id": "country",
@@ -198,8 +191,7 @@
               "type": "required",
               "errorMessage": "Please select a country"
             }
-          ],
-          "ui": { "colSpan": 6 }
+          ]
         },
         {
           "id": "state",
@@ -215,8 +207,7 @@
               "type": "required",
               "errorMessage": "Please select a state/province"
             }
-          ],
-          "ui": { "colSpan": 6 }
+          ]
         },
         {
           "id": "address_line1",
@@ -228,13 +219,13 @@
               "errorMessage": "Address line 1 is required"
             }
           ],
-          "ui": { "colSpan": 12 }
+          "ui": { "colSpan": "lg:col-span-2" }
         },
         {
           "id": "address_line2",
           "label": "Address Line 2",
           "type": "text",
-          "ui": { "colSpan": 12 }
+          "ui": { "colSpan": "lg:col-span-2" }
         },
         {
           "id": "city",
@@ -245,8 +236,7 @@
               "type": "required",
               "errorMessage": "City is required"
             }
-          ],
-          "ui": { "colSpan": 6 }
+          ]
         },
         {
           "id": "zip",
@@ -262,8 +252,7 @@
               "value": "^[A-Za-z0-9 -]{3,10}$",
               "errorMessage": "Please enter a valid ZIP/postal code"
             }
-          ],
-          "ui": { "colSpan": 6 }
+          ]
         }
       ]
     },
@@ -271,7 +260,6 @@
     {
       "id": "account_details",
       "label": "Account Details",
-      "ui": { "icon": "settings" },
       "fields": [
         {
           "id": "username",
@@ -358,8 +346,7 @@
               "value": "today",
               "errorMessage": "Start date cannot be in the past"
             }
-          ],
-          "ui": { "colSpan": 6 }
+          ]
         },
         {
           "id": "user_role",

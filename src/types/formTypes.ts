@@ -81,7 +81,7 @@ export interface FieldInfo {
 // ============================================================================
 
 export interface FieldUI {
-  colSpan?: number;
+  colSpan?: string;
   rows?: number;
   icon?: string;
   className?: string;
@@ -129,6 +129,7 @@ export interface BaseFieldProps {
   groupId: string;
   onValueChange: (value: any) => void;
   onBlur: () => void;
+  colSpan?: string;
 }
 
 export interface BaseInputProps {

@@ -2,6 +2,7 @@
  * DynamicFormRenderer component - React equivalent of Vue DynamicFormRenderer
  */
 
+import { cn } from '@/lib/utils';
 import React, {
   useCallback,
   useEffect,
@@ -385,7 +386,11 @@ const DynamicFormRenderer: React.FC<DynamicFormRendererProps> = ({
             isOpen={openedGroups.get(group.id) || false}
             onToggle={() => toggleGroup(group.id)}
           >
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div
+              className={cn(
+                'grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4'
+              )}
+            >
               {group.fields
                 ?.filter(field => fieldVisibilityChecker(field))
                 .map(field => (
@@ -400,6 +405,7 @@ const DynamicFormRenderer: React.FC<DynamicFormRendererProps> = ({
                       updateFieldValue(group.id, field.id, value)
                     }
                     onBlur={() => validateField(group.id, field)}
+                    colSpan={field.ui?.colSpan}
                   />
                 ))}
             </div>

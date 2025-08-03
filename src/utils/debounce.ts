@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /**
  * Debounce utility function
  * Delays the execution of a function until after a specified wait time
@@ -7,7 +8,7 @@ export function debounce<T extends (...args: any[]) => any>(
   func: T,
   wait: number
 ): T & { cancel: () => void } {
-  let timeout: number | null = null;
+  let timeout: ReturnType<typeof setTimeout> | null = null;
 
   const debounced = ((...args: any[]) => {
     if (timeout) clearTimeout(timeout);

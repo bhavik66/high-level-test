@@ -28,6 +28,7 @@ const BaseField: React.FC<BaseFieldProps> = ({
   // groupId,
   onValueChange,
   onBlur,
+  colSpan,
 }) => {
   const isRequired = isFieldRequired(field);
   const hasError = Boolean(errorMessage);
@@ -178,7 +179,7 @@ const BaseField: React.FC<BaseFieldProps> = ({
   };
 
   return (
-    <div className={cn(isEditing && 'space-y-2')}>
+    <div className={cn(isEditing && 'space-y-2', colSpan)}>
       <Label
         htmlFor={field.id}
         className={cn(
