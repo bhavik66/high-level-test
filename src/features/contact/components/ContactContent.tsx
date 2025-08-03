@@ -128,7 +128,6 @@ const ContactContent = () => {
         formDefinition={formDefinition}
         values={formValues}
         onValuesChange={handleValuesChange}
-        performanceMode="development"
       />
     </div>
   );

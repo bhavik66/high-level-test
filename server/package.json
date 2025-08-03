@@ -15,5 +15,8 @@
     "server"
   ],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "compression": "^1.8.1"
+  }
 }
