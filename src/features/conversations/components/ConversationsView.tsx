@@ -2,25 +2,25 @@ import ConversationContent from '@/features/conversations/components/Conversatio
 import ConversationFooter from '@/features/conversations/components/ConversationFooter';
 import ConversationHeader from '@/features/conversations/components/ConversationHeader';
 import {
-  LayoutViewCard,
-  LayoutViewCardContent,
-  LayoutViewCardFooter,
-  LayoutViewCardHeader,
-} from '@/shared/components/layout/LayoutViewCard';
+  FeatureCard,
+  FeatureCardContent,
+  FeatureCardFooter,
+  FeatureCardHeader,
+} from '@/shared/components/containers';
 
 const ConversationsView = () => {
   return (
-    <LayoutViewCard>
-      <LayoutViewCardHeader>
+    <FeatureCard>
+      <FeatureCardHeader>
         <ConversationHeader />
-      </LayoutViewCardHeader>
-      <LayoutViewCardContent>
+      </FeatureCardHeader>
+      <FeatureCardContent>
         <ConversationContent />
-      </LayoutViewCardContent>
-      <LayoutViewCardFooter>
+      </FeatureCardContent>
+      <FeatureCardFooter>
         <ConversationFooter />
-      </LayoutViewCardFooter>
-    </LayoutViewCard>
+      </FeatureCardFooter>
+    </FeatureCard>
   );
 };
 

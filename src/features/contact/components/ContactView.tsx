@@ -1,8 +1,8 @@
 import {
-  LayoutViewCard,
-  LayoutViewCardContent,
-  LayoutViewCardHeader,
-} from '@/shared/components/layout/LayoutViewCard';
+  FeatureCard,
+  FeatureCardContent,
+  FeatureCardHeader,
+} from '@/shared/components/containers';
 
 import ContactCard from '@/features/contact/components/ContactCard';
 import FieldsFilterTab from '@/features/contact/components/FieldsFilterTab';
@@ -13,17 +13,17 @@ import ContactHeader from './ContactHeader';
 
 const ContactView = () => {
   return (
-    <LayoutViewCard>
-      <LayoutViewCardHeader>
+    <FeatureCard>
+      <FeatureCardHeader>
         <ContactHeader />
-      </LayoutViewCardHeader>
-      <LayoutViewCardContent>
+      </FeatureCardHeader>
+      <FeatureCardContent>
         <ContactCard />
         <FieldsFilterTab />
         <SearchFieldInput />
         <ContactContent />
-      </LayoutViewCardContent>
-    </LayoutViewCard>
+      </FeatureCardContent>
+    </FeatureCard>
   );
 };
 

@@ -1,21 +1,21 @@
 import {
-  LayoutViewCard,
-  LayoutViewCardContent,
-  LayoutViewCardHeader,
-} from '@/shared/components/layout/LayoutViewCard';
+  FeatureCard,
+  FeatureCardContent,
+  FeatureCardHeader,
+} from '@/shared/components/containers';
 import NoteContent from './NoteContent';
 import NoteHeader from './NoteHeader';
 
 const NotesView = () => {
   return (
-    <LayoutViewCard>
-      <LayoutViewCardHeader>
+    <FeatureCard>
+      <FeatureCardHeader>
         <NoteHeader />
-      </LayoutViewCardHeader>
-      <LayoutViewCardContent>
+      </FeatureCardHeader>
+      <FeatureCardContent>
         <NoteContent />
-      </LayoutViewCardContent>
-    </LayoutViewCard>
+      </FeatureCardContent>
+    </FeatureCard>
   );
 };
 

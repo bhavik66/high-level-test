@@ -1,4 +1,4 @@
-import { DynamicMainLayout } from '@/shared/components/layout';
+import { ConfigurableGridLayout } from '@/shared/components/layout';
 
 function App() {
   const handleError = (error: Error, componentName?: string) => {
@@ -7,7 +7,7 @@ function App() {
 
   return (
     <div className="p-2 sm:p-4 h-screen bg-gray-200">
-      <DynamicMainLayout onError={handleError} />
+      <ConfigurableGridLayout onError={handleError} />
     </div>
   );
 }

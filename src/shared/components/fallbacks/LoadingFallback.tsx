@@ -1,4 +1,4 @@
-import type { LoadingFallbackProps } from '@/shared/types/layoutTypes';
+import type { LoadingFallbackProps } from '@/shared/types/errorTypes';
 import { Loader2 } from 'lucide-react';
 
 // ===============================

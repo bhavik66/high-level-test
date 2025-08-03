@@ -18,8 +18,8 @@ import type {
   GroupDefinition,
 } from '../../types/formTypes';
 import { Button } from '../ui/button';
-import BaseField from './BaseField';
-import BaseGroup from './BaseGroup';
+import FieldGroup from './FieldGroup';
+import FormField from './FormField';
 
 interface DynamicFormRendererProps {
   formDefinition: FormDefinition;
@@ -28,7 +28,7 @@ interface DynamicFormRendererProps {
   performanceMode?: 'development' | 'production';
 }
 
-const DynamicFormRenderer: React.FC<DynamicFormRendererProps> = memo(
+const ConfigurableFormRenderer: React.FC<DynamicFormRendererProps> = memo(
   ({
     formDefinition,
     values,
@@ -178,12 +178,12 @@ const MemoizedGroupRenderer = memo<{
     isEditing,
     isFieldVisible,
   }) => (
-    <BaseGroup group={group} isOpen={isOpen} onToggle={onToggle}>
+    <FieldGroup group={group} isOpen={isOpen} onToggle={onToggle}>
       <div
         className={cn('grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 gap-4')}
       >
         {visibleFields.map(field => (
-          <BaseField
+          <FormField
             key={field.id}
             field={field}
             control={control}
@@ -193,8 +193,8 @@ const MemoizedGroupRenderer = memo<{
           />
         ))}
       </div>
-    </BaseGroup>
+    </FieldGroup>
   )
 );
 
-export default DynamicFormRenderer;
+export default ConfigurableFormRenderer;

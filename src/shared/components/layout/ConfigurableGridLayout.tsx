@@ -1,11 +1,8 @@
 import { Suspense, useMemo } from 'react';
 
 // Internal imports
-import {
-  ErrorBoundary,
-  LoadingFallback,
-} from '@/shared/components/error-boundary';
-import Layout from './Layout';
+import { ErrorBoundary } from '@/shared/components/error-boundary';
+import { LoadingFallback } from '@/shared/components/fallbacks';
 
 // JSON Config
 import layoutConfig from '@/assets/data/mainLayout.json';
@@ -18,9 +15,9 @@ import type { LayoutItem } from '@/shared/types/layoutTypes';
 import { composeClasses, isValidLayoutItem } from '@/shared/utils/layoutUtils';
 
 // ===============================
-// MAIN DYNAMIC LAYOUT COMPONENT
+// CONFIGURABLE GRID LAYOUT COMPONENT
 // ===============================
-const DynamicMainLayout = ({
+const ConfigurableGridLayout = ({
   customConfig,
   onError,
 }: {
@@ -96,13 +93,13 @@ const DynamicMainLayout = ({
                 </div>
               )}
             >
-              <Layout className={classes}>
+              <div className={`w-full h-full overflow-y-auto ${classes}`}>
                 <Suspense
                   fallback={<LoadingFallback componentName={componentName} />}
                 >
                   <Component />
                 </Suspense>
-              </Layout>
+              </div>
             </ErrorBoundary>
           );
         })}
@@ -111,4 +108,4 @@ const DynamicMainLayout = ({
   );
 };
 
-export default DynamicMainLayout;
+export default ConfigurableGridLayout;

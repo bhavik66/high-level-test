@@ -1,4 +1,4 @@
-import type { ErrorFallbackProps } from '@/shared/types/layoutTypes';
+import type { ErrorFallbackProps } from '@/shared/types/errorTypes';
 import { AlertCircle, RotateCcw } from 'lucide-react';
 
 // ===============================

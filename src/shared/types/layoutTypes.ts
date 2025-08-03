@@ -1,5 +1,3 @@
-import { type ReactNode } from 'react';
-
 // ===============================
 // COMPONENT MAPPING TYPES
 // ===============================
@@ -48,40 +46,8 @@ export interface LayoutConfig {
 // ===============================
 // COMPONENT PROPS INTERFACES
 // ===============================
-export interface DynamicMainLayoutProps {
+export interface ConfigurableGridLayoutProps {
   preset?: LayoutPreset;
   customConfig?: LayoutItem[];
   onError?: (error: Error, componentName?: string) => void;
-}
-
-// ===============================
-// ERROR BOUNDARY INTERFACES
-// ===============================
-export interface ErrorBoundaryState {
-  hasError: boolean;
-  error: Error | null;
-  errorInfo: unknown;
-}
-
-export interface ErrorBoundaryProps {
-  children: ReactNode;
-  fallback?: (
-    error: Error,
-    resetError: () => void,
-    componentName?: string
-  ) => ReactNode;
-  componentName?: string;
-}
-
-export interface ErrorFallbackProps {
-  error: Error;
-  resetError: () => void;
-  componentName?: string;
-}
-
-// ===============================
-// LOADING COMPONENT INTERFACES
-// ===============================
-export interface LoadingFallbackProps {
-  componentName?: string;
 }

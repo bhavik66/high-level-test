@@ -38,8 +38,8 @@ export interface BaseFieldProps {
   onFieldBlur?: (fieldId: string) => void;
 }
 
-// Performance-optimized BaseField with react-hook-form integration
-const BaseField: React.FC<BaseFieldProps> = memo(
+// Performance-optimized FormField with react-hook-form integration
+const FormField: React.FC<BaseFieldProps> = memo(
   ({
     field,
     control,
@@ -253,4 +253,4 @@ const BaseField: React.FC<BaseFieldProps> = memo(
   }
 );
 
-export default BaseField;
+export default FormField;

@@ -11,7 +11,7 @@ import {
   CollapsibleTrigger,
 } from '../ui/collapsible';
 
-const BaseGroup: React.FC<BaseGroupProps> = ({
+const FieldGroup: React.FC<BaseGroupProps> = ({
   group,
   isOpen,
   onToggle,
@@ -47,4 +47,4 @@ const BaseGroup: React.FC<BaseGroupProps> = ({
   );
 };
 
-export default BaseGroup;
+export default FieldGroup;
