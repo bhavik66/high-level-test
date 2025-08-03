@@ -18,10 +18,20 @@ function FeatureCardHeader({ children }: { children: React.ReactNode }) {
   return <CardHeader className="gap-0 py-2 px-4">{children}</CardHeader>;
 }
 
-function FeatureCardContent({ children }: { children: React.ReactNode }) {
+function FeatureCardContent({
+  children,
+  scrollable = true,
+}: {
+  children: React.ReactNode;
+  scrollable?: boolean;
+}) {
   return (
     <CardContent className="px-0 h-full overflow-y-auto">
-      <ScrollArea className="h-full px-4">{children}</ScrollArea>
+      {scrollable ? (
+        <ScrollArea className="h-full px-4">{children}</ScrollArea>
+      ) : (
+        <div className="h-full px-4">{children}</div>
+      )}
     </CardContent>
   );
 }
