@@ -12,7 +12,6 @@ import type { Control, FieldValues } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
 import { cn } from '../../lib/utils';
 import type { FieldDefinition } from '../../types/formTypes';
-import { getInputType, isFieldRequired } from '../../utils/validation';
 import { Checkbox } from '../ui/checkbox';
 import { DatePicker } from '../ui/date-picker';
 import { Input } from '../ui/input';
@@ -26,6 +25,36 @@ import {
   SelectValue,
 } from '../ui/select';
 import { Textarea } from '../ui/textarea';
+
+// Utility functions moved inline
+function getInputType(fieldType: string): string {
+  const typeMap: Record<string, string> = {
+    text: 'text',
+    email: 'email',
+    tel: 'tel',
+    password: 'password',
+    number: 'number',
+    date: 'date',
+    url: 'url',
+  };
+  return typeMap[fieldType] || 'text';
+}
+
+function isFieldRequired(field: any): boolean {
+  if (!field.validation) return false;
+  // Handle new validation array format
+  if (Array.isArray(field.validation)) {
+    return field.validation.some((rule: any) => rule.type === 'required');
+  }
+  // Handle legacy validation object format
+  if (
+    typeof field.validation === 'object' &&
+    !Array.isArray(field.validation)
+  ) {
+    return !!field.validation.required;
+  }
+  return false;
+}
 
 export interface FormFieldProps {
   field: FieldDefinition;

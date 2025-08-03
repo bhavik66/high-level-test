@@ -53,7 +53,6 @@ const ConfigurableFormRenderer: React.FC<ConfigurableFormRendererProps> = memo(
       formDefinition,
       initialValues: values,
       onValuesChange,
-      mode: performanceMode === 'development' ? 'onChange' : 'onBlur',
     });
 
     // Memoized display groups - only groups with fields

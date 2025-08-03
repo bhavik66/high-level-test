@@ -8,9 +8,28 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import type { FieldDefinition, FormDefinition } from '../types/formTypes';
-
-import { isFieldVisible } from '../utils/validation';
 import { generateFormSchema } from '../utils/zodSchemaGenerator';
+
+// Utility function moved inline
+function isFieldVisible(field: any, dependsOnValue: any): boolean {
+  if (!field.visibility) return true;
+
+  const { value, valueNotEmpty } = field.visibility;
+
+  if (valueNotEmpty) {
+    return (
+      dependsOnValue !== null &&
+      dependsOnValue !== undefined &&
+      dependsOnValue !== ''
+    );
+  }
+
+  if (value !== undefined) {
+    return dependsOnValue === value;
+  }
+
+  return true;
+}
 
 export interface UseDynamicFormProps {
   formDefinition: FormDefinition;

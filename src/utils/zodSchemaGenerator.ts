@@ -1,6 +1,5 @@
 /**
- * Zod Schema Generator - Converts JSON form definitions to Zod schemas
- * This maintains full compatibility with existing JSON validation rules
+ * Zod Schema Generator - keeps only the function that's actually being used
  */
 
 import { z } from 'zod';
@@ -14,7 +13,7 @@ import type {
 /**
  * Convert JSON field validation rules to Zod schema
  */
-export function createZodFieldSchema(field: FieldDefinition): z.ZodType<any> {
+function createZodFieldSchema(field: FieldDefinition): z.ZodType<any> {
   let schema: z.ZodType<any>;
 
   // Base schema based on field type
@@ -279,7 +278,7 @@ function convertLegacyValidationToArray(
 }
 
 /**
- * Generate complete Zod schema from form definition
+ * Generate complete Zod schema from form definition - used in useDynamicForm.ts
  */
 export function generateFormSchema(
   formDefinition: FormDefinition
@@ -328,42 +327,4 @@ export function generateFormSchema(
   }
 
   return schema;
-}
-
-/**
- * Generate flat form values from grouped form data for react-hook-form
- */
-export function convertGroupedToFlat(
-  groupedData: Record<string, Record<string, any>>
-): Record<string, any> {
-  const flatData: Record<string, any> = {};
-
-  Object.values(groupedData).forEach(group => {
-    Object.entries(group).forEach(([fieldId, value]) => {
-      flatData[fieldId] = value;
-    });
-  });
-
-  return flatData;
-}
-
-/**
- * Convert flat form values back to grouped structure
- */
-export function convertFlatToGrouped(
-  flatData: Record<string, any>,
-  formDefinition: FormDefinition
-): Record<string, Record<string, any>> {
-  const groupedData: Record<string, Record<string, any>> = {};
-
-  formDefinition.groups.forEach(group => {
-    groupedData[group.id] = {};
-    group.fields?.forEach(field => {
-      if (flatData.hasOwnProperty(field.id)) {
-        groupedData[group.id][field.id] = flatData[field.id];
-      }
-    });
-  });
-
-  return groupedData;
 }
