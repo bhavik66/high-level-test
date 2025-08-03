@@ -155,8 +155,7 @@
               "type": "email",
               "errorMessage": "Please enter a valid email address"
             }
-          ],
-          "ui": { "colSpan": "lg:col-span-2" }
+          ]
         },
         {
           "id": "phone",
@@ -169,8 +168,7 @@
               "value": "^[+]?\\d{10,15}$",
               "errorMessage": "Please enter a valid phone number"
             }
-          ],
-          "ui": { "colSpan": "lg:col-span-2" }
+          ]
         },
         {
           "id": "country",
@@ -251,112 +249,6 @@
               "type": "pattern",
               "value": "^[A-Za-z0-9 -]{3,10}$",
               "errorMessage": "Please enter a valid ZIP/postal code"
-            }
-          ]
-        }
-      ]
-    },
-
-    {
-      "id": "account_details",
-      "label": "Account Details",
-      "fields": [
-        {
-          "id": "username",
-          "label": "Username",
-          "type": "text",
-          "placeholder": "Unique username",
-          "validation": [
-            {
-              "type": "required",
-              "errorMessage": "Username is required"
-            },
-            {
-              "type": "minLength",
-              "value": 4,
-              "errorMessage": "Username must be at least 4 characters"
-            },
-            {
-              "type": "maxLength",
-              "value": 20,
-              "errorMessage": "Username cannot exceed 20 characters"
-            },
-            {
-              "type": "pattern",
-              "value": "^[a-zA-Z0-9_]+$",
-              "errorMessage": "Username can only contain letters, numbers, and underscores"
-            }
-          ]
-        },
-        {
-          "id": "password",
-          "label": "Password",
-          "type": "password",
-          "validation": [
-            {
-              "type": "required",
-              "errorMessage": "Password is required"
-            },
-            {
-              "type": "minLength",
-              "value": 8,
-              "errorMessage": "Password must be at least 8 characters"
-            },
-            {
-              "type": "pattern",
-              "value": "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$",
-              "errorMessage": "Password must contain uppercase, lowercase, and number"
-            }
-          ]
-        },
-        {
-          "id": "confirm_password",
-          "label": "Confirm Password",
-          "type": "password",
-          "validation": [
-            {
-              "type": "required",
-              "errorMessage": "Please confirm your password"
-            },
-            {
-              "type": "match",
-              "field": "account_details.password",
-              "errorMessage": "Passwords do not match"
-            }
-          ]
-        },
-        {
-          "id": "newsletter",
-          "label": "Subscribe to Newsletter",
-          "type": "checkbox",
-          "defaultValue": false
-        },
-        {
-          "id": "membership_start_date",
-          "label": "Membership Start Date",
-          "type": "date",
-          "placeholder": "Select start date",
-          "validation": [
-            {
-              "type": "required",
-              "errorMessage": "Membership start date is required"
-            },
-            {
-              "type": "minDate",
-              "value": "today",
-              "errorMessage": "Start date cannot be in the past"
-            }
-          ]
-        },
-        {
-          "id": "user_role",
-          "label": "User Role",
-          "type": "dropdown",
-          "options": ["Admin", "Editor", "Viewer"],
-          "validation": [
-            {
-              "type": "required",
-              "errorMessage": "Please select a user role"
             }
           ]
         }

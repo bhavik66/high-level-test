@@ -8,16 +8,10 @@
   "spouse_name": "Jane Doe",
   "email": "john.doe@example.com",
   "phone": "+12345678901",
-  "country": "US",
-  "state": "CA",
+  "country": "Canada",
+  "state": "California",
   "address_line1": "123 Main St",
   "address_line2": "Apt 4B",
   "city": "San Francisco",
-  "zip": "94105",
-  "username": "john_doe",
-  "password": "Password123",
-  "confirm_password": "Password123",
-  "newsletter": true,
-  "membership_start_date": "2024-12-01",
-  "user_role": "Admin"
+  "zip": "94105"
 }

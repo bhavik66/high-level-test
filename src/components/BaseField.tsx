@@ -102,7 +102,7 @@ const BaseField: React.FC<BaseFieldProps> = ({
           <Select value={value || ''} onValueChange={handleSelectChange}>
             <SelectTrigger
               {...commonProps}
-              className={cn(hasError && 'border-red-500')}
+              className={cn(hasError && 'border-red-500', 'w-full')}
             >
               <SelectValue
                 placeholder={field.placeholder || 'Select an option'}
