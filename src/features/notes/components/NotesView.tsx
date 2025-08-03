@@ -12,7 +12,7 @@ const NotesView = () => {
       <FeatureCardHeader>
         <NoteHeader />
       </FeatureCardHeader>
-      <FeatureCardContent>
+      <FeatureCardContent scrollable={false}>
         <NoteContent />
       </FeatureCardContent>
     </FeatureCard>

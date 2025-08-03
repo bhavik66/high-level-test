@@ -1,3 +1,4 @@
+import { QueryProvider } from '@/app/providers';
 import { ConfigurableGridLayout } from '@/shared/components/layout';
 
 function App() {
@@ -6,9 +7,11 @@ function App() {
   };
 
   return (
-    <div className="p-2 sm:p-4 h-screen bg-gray-200">
-      <ConfigurableGridLayout onError={handleError} />
-    </div>
+    <QueryProvider>
+      <div className="p-2 sm:p-4 h-screen bg-gray-200">
+        <ConfigurableGridLayout onError={handleError} />
+      </div>
+    </QueryProvider>
   );
 }
 

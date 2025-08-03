@@ -1,78 +1,152 @@
-import React from 'react';
-import type { NoteData } from '../type';
+import { useInfiniteQuery } from '@tanstack/react-query';
+import { useVirtualizer } from '@tanstack/react-virtual';
+import React, { useCallback, useEffect, useRef } from 'react';
+import { fetchNotesPage } from '../api/notesApi';
 import Note from './Note';
 
 interface NoteContentProps {
-  notes?: NoteData[];
+  searchQuery?: string;
   className?: string;
 }
 
-// Dummy data for 10 notes
-const dummyNotes = [
-  {
-    id: '1',
-    content: `<span class="tag-primary">@Aaron Site</span> Inspection completed. Heavy moss buildup on north side, moderate algae staining. Customer very satisfied with quote presentation. Chose Premium package. Payment processed via credit card. Mentioned neighbor also needs service.`,
-    timestamp: '2 hours ago',
-  },
-  {
-    id: '2',
-    content: `<span class="tag-success">@Sarah Property</span> Roof cleaning finished ahead of schedule. Excellent results on tile roof. Customer extremely happy with outcome. Referred two new clients. Scheduled follow-up maintenance for 6 months.`,
-    timestamp: '4 hours ago',
-  },
-  {
-    id: '3',
-    content: `<span class="tag-warning">@Johnson Residence</span> Initial assessment completed. Severe algae and moss infestation on entire roof. Safety concerns with steep pitch. Recommended professional equipment. Customer approved safety measures.`,
-    timestamp: '6 hours ago',
-  },
-  {
-    id: '4',
-    content: `<span class="tag-info">@Downtown Office</span> Commercial building maintenance. Large flat roof area. Used specialized equipment for safety. Completed in 3 hours. Building manager requested quarterly service contract.`,
-    timestamp: '1 day ago',
-  },
-  {
-    id: '5',
-    content: `<span class="tag-accent">@Miller Family</span> Emergency call - severe storm damage. Fallen branches and debris on roof. Quick response team dispatched. Cleared debris and assessed damage. Insurance claim assistance provided.`,
-    timestamp: '1 day ago',
-  },
-  {
-    id: '6',
-    content: `<span class="tag-secondary">@Thompson House</span> Regular maintenance visit. Light cleaning required. Customer mentioned gutter issues. Recommended gutter cleaning service. Scheduled for next week.`,
-    timestamp: '2 days ago',
-  },
-  {
-    id: '7',
-    content: `<span class="tag-primary">@Riverside Condos</span> Multi-unit complex cleaning. 12 units completed. HOA very satisfied with results. Negotiated annual contract. Payment terms: quarterly billing.`,
-    timestamp: '3 days ago',
-  },
-  {
-    id: '8',
-    content: `<span class="tag-success">@Green Valley</span> New construction post-build cleaning. Builder requested premium service. Excellent results on new shingles. Photos taken for portfolio. Builder referred to other projects.`,
-    timestamp: '4 days ago',
-  },
-  {
-    id: '9',
-    content: `<span class="tag-warning">@Historic District</span> Heritage building restoration. Special care required for old tiles. Used gentle cleaning methods. Preservation guidelines followed. Local council approved work.`,
-    timestamp: '5 days ago',
-  },
-  {
-    id: '10',
-    content: `<span class="tag-info">@Mountain View</span> High-altitude property. Challenging access. Used specialized equipment. Weather delays encountered. Customer understanding about conditions. Completed successfully.`,
-    timestamp: '1 week ago',
-  },
-];
+const NoteContent: React.FC<NoteContentProps> = ({
+  searchQuery,
+  className,
+}) => {
+  const parentRef = useRef<HTMLDivElement>(null);
 
-const NoteContent: React.FC<NoteContentProps> = ({ notes = dummyNotes }) => {
+  const {
+    status,
+    data,
+    error,
+    isFetching,
+    isFetchingNextPage,
+    fetchNextPage,
+    hasNextPage,
+  } = useInfiniteQuery({
+    queryKey: ['notes', searchQuery],
+    queryFn: ({ pageParam }) => fetchNotesPage(20, pageParam),
+    getNextPageParam: lastPage =>
+      lastPage.hasMore ? lastPage.nextOffset : undefined,
+    initialPageParam: 0,
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    gcTime: 10 * 60 * 1000, // 10 minutes
+  });
+
+  // Flatten all pages into a single array
+  const allNotes = data ? data.pages.flatMap(page => page.notes) : [];
+
+  const virtualizer = useVirtualizer({
+    count: hasNextPage ? allNotes.length + 1 : allNotes.length,
+    getScrollElement: () => parentRef.current,
+    estimateSize: () => 180,
+    overscan: 5,
+  });
+
+  const items = virtualizer.getVirtualItems();
+  const fetchTriggeredRef = useRef(false);
+
+  // Stable fetch function to prevent vibration
+  const handleFetch = useCallback(() => {
+    if (!hasNextPage || isFetchingNextPage || fetchTriggeredRef.current) {
+      return;
+    }
+
+    const [lastItem] = [...items].reverse();
+    if (!lastItem) {
+      return;
+    }
+
+    const threshold = 3;
+    const shouldFetch = lastItem.index >= allNotes.length - threshold;
+
+    if (shouldFetch) {
+      fetchTriggeredRef.current = true;
+      fetchNextPage().finally(() => {
+        // Reset flag after fetch completes
+        setTimeout(() => {
+          fetchTriggeredRef.current = false;
+        }, 1000);
+      });
+    }
+  }, [hasNextPage, isFetchingNextPage, items, allNotes.length, fetchNextPage]);
+
+  // Debounced effect to prevent rapid triggers
+  useEffect(() => {
+    const timeoutId = setTimeout(handleFetch, 100);
+    return () => clearTimeout(timeoutId);
+  }, [handleFetch]);
+
+  if (status === 'pending') {
+    return (
+      <div className="flex h-full w-full items-center justify-center">
+        <div className="text-muted-foreground">Loading notes...</div>
+      </div>
+    );
+  }
+
+  if (status === 'error') {
+    return (
+      <div className="flex h-full w-full items-center justify-center">
+        <div className="text-destructive">
+          Error loading notes: {error?.message || 'Unknown error'}
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <>
-      {notes.map(note => (
-        <Note
-          key={note.id}
-          content={note.content}
-          timestamp={note.timestamp}
-          className="mb-3"
-        />
-      ))}
-    </>
+    <div className={`h-full w-full ${className || ''}`}>
+      <div ref={parentRef} className="h-full w-full overflow-y-auto">
+        <div
+          style={{ height: `${virtualizer.getTotalSize()}px` }}
+          className="relative w-full"
+        >
+          <div
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              transform: `translateY(${items[0]?.start ?? 0}px)`,
+            }}
+          >
+            {items.map(virtualItem => {
+              const isLoaderRow = virtualItem.index > allNotes.length - 1;
+              const note = allNotes[virtualItem.index];
+
+              return (
+                <div
+                  key={virtualItem.key}
+                  data-index={virtualItem.index}
+                  ref={virtualizer.measureElement}
+                  className="mb-3"
+                >
+                  {isLoaderRow ? (
+                    <div className="flex h-32 items-center justify-center">
+                      <div className="text-muted-foreground">
+                        {hasNextPage
+                          ? 'Loading more notes...'
+                          : 'No more notes to load'}
+                      </div>
+                    </div>
+                  ) : (
+                    <Note content={note.content} timestamp={note.timestamp} />
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      {/* Background loading indicator */}
+      {isFetching && !isFetchingNextPage && (
+        <div className="absolute bottom-4 right-4 rounded-md bg-background/80 px-3 py-2 text-sm text-muted-foreground shadow-md backdrop-blur-sm">
+          Updating notes...
+        </div>
+      )}
+    </div>
   );
 };
 
