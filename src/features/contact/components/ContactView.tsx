@@ -2,7 +2,7 @@ import {
   LayoutViewCard,
   LayoutViewCardContent,
   LayoutViewCardHeader,
-} from '@/components/LayoutViewCard';
+} from '@/shared/components/layout/LayoutViewCard';
 
 import ContactCard from '@/features/contact/components/ContactCard';
 import FieldsFilterTab from '@/features/contact/components/FieldsFilterTab';

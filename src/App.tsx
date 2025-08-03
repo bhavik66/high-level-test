@@ -1,4 +1,4 @@
-import DynamicMainLayout from '@/components/DynamicMainLayout';
+import { DynamicMainLayout } from '@/shared/components/layout';
 
 function App() {
   const handleError = (error: Error, componentName?: string) => {

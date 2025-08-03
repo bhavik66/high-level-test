@@ -2,7 +2,7 @@ import {
   LayoutViewCard,
   LayoutViewCardContent,
   LayoutViewCardHeader,
-} from '@/components/LayoutViewCard';
+} from '@/shared/components/layout/LayoutViewCard';
 import NoteContent from './NoteContent';
 import NoteHeader from './NoteHeader';
 

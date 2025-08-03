@@ -1,4 +1,4 @@
-import DynamicFormDisplay from '@/components/DynamicFormDisplay';
+import { DynamicFormDisplay } from '@/shared/components/forms';
 
 const ContactContent = () => {
   return (

@@ -1,4 +1,7 @@
-import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
+import {
+  ToggleGroup,
+  ToggleGroupItem,
+} from '@/shared/components/ui/toggle-group';
 
 const FieldsFilterTab = () => {
   return (
