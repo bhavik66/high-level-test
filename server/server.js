@@ -2,6 +2,7 @@ import cors from 'cors';
 import express from 'express';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import layoutRoutes from './routes/layoutRoutes.js';
 import notesRoutes from './routes/notesRoutes.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -17,6 +18,7 @@ app.use(express.static(path.join(__dirname, '..', 'dist'))); // Serve built Reac
 
 // API Routes
 app.use('/api/notes', notesRoutes);
+app.use('/api/layout', layoutRoutes);
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {
@@ -42,6 +44,9 @@ app.get('/api', (req, res) => {
         'PUT /api/notes/:id': 'Update note',
         'DELETE /api/notes/:id': 'Delete note',
         'GET /api/notes/stats/summary': 'Get notes statistics',
+      },
+      layout: {
+        'GET /api/layout': 'Get main layout configuration',
       },
       system: {
         'GET /api/health': 'Health check',
@@ -87,6 +92,7 @@ app.listen(PORT, () => {
     `🔍 Search API: http://localhost:${PORT}/api/notes/search?q=query`
   );
   console.log(`📊 Stats API: http://localhost:${PORT}/api/notes/stats/summary`);
+  console.log(`🎨 Layout API: http://localhost:${PORT}/api/layout`);
   console.log(`❤️  Health Check: http://localhost:${PORT}/api/health`);
   console.log(`📖 API Info: http://localhost:${PORT}/api`);
   console.log('================================');
