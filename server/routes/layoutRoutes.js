@@ -63,4 +63,37 @@ router.get('/main', async (req, res) => {
   }
 });
 
+// Hardcoded secondary layout configuration
+const secondaryLayout = [
+  {
+    component: 'ConversationsView',
+    className: 'h-full overflow-y-auto',
+    visible: true,
+    responsive: {
+      base: 'col-span-12 lg:col-span-8 lg:mb-0',
+    },
+  },
+  {
+    component: 'ContactView',
+    className: 'h-full',
+    visible: true,
+    responsive: {
+      base: 'col-span-12 lg:col-span-4 lg:mb-0',
+    },
+  },
+];
+
+// GET /api/layout/secondary - Get secondary layout configuration
+router.get('/secondary', async (req, res) => {
+  try {
+    res.json({
+      layout: secondaryLayout,
+      timestamp: new Date().toISOString(),
+      version: '1.0.0',
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 export default router;
