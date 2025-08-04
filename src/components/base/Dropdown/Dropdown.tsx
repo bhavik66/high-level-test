@@ -34,7 +34,6 @@ interface DropdownProps {
 }
 
 const Dropdown: React.FC<DropdownProps> = ({
-  id,
   label,
   placeholder = 'Select an option',
   value,
