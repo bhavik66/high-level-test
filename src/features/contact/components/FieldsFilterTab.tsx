@@ -1,7 +1,4 @@
-import {
-  ToggleGroup,
-  ToggleGroupItem,
-} from '@/components/ui/toggle-group';
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group';
 
 const FieldsFilterTab = () => {
   return (
@@ -13,17 +10,21 @@ const FieldsFilterTab = () => {
       <ToggleGroupItem
         value="all-fields"
         aria-label="All Fields"
-        className=" border-r-1 h-7"
+        className=" border-r-1 h-7 cursor-pointer"
       >
         All Fields
       </ToggleGroupItem>
-      <ToggleGroupItem value="dnd" aria-label="DND" className="border-r-1 h-7">
+      <ToggleGroupItem
+        value="dnd"
+        aria-label="DND"
+        className="border-r-1 h-7 cursor-pointer"
+      >
         DND
       </ToggleGroupItem>
       <ToggleGroupItem
         value="actions"
         aria-label="Actions"
-        className="border-r-1 h-7"
+        className="border-r-1 h-7 cursor-pointer"
       >
         Actions
       </ToggleGroupItem>

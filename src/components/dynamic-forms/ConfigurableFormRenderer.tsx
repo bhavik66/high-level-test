@@ -106,7 +106,7 @@ const ConfigurableFormRenderer: React.FC<ConfigurableFormRendererProps> = memo(
               <Button
                 onClick={saveEdit}
                 disabled={isSaving}
-                className="bg-green-600 hover:bg-green-700 text-white disabled:opacity-50 disabled:cursor-not-allowed"
+                className="text-white disabled:opacity-50 disabled:cursor-not-allowed"
                 size={'sm'}
               >
                 {isSaving ? 'Saving...' : 'Save'}

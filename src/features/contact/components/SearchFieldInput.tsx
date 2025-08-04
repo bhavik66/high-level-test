@@ -10,7 +10,7 @@ const SearchFieldInput = () => {
         <Input
           type="text"
           placeholder="Search Fields and Folders"
-          className="pl-10 pr-12 h-12 border-gray-200 rounded-lg bg-white focus:outline-none focus:border-gray-200 focus:ring-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
+          className="pl-10 pr-12 h-10 border-gray-200 rounded-lg bg-white focus:outline-none focus:border-gray-200 focus:ring-0 focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-offset-0"
         />
         <Button
           variant="ghost"
