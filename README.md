@@ -2,6 +2,10 @@
 
 This template provides a minimal setup to get React working in Vite with HMR, ESLint, and Prettier for code formatting.
 
+## 🚀 Live Demo
+
+Check out the live demo: **[https://highlevel-test-tau.vercel.app/](https://highlevel-test-tau.vercel.app/)**
+
 ## Code Formatting Setup
 
 This project is configured with **Prettier** and **ESLint** for consistent code formatting and linting. The setup includes:
@@ -49,11 +53,6 @@ Make sure you have the following VS Code extensions installed:
 - `.vscode/settings.json`: VS Code workspace settings
 - `.vscode/extensions.json`: Recommended VS Code extensions
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
 ## Documentation
 
 Detailed documentation about various aspects of the project can be found in the `docs/` directory:
@@ -70,8 +69,9 @@ The project leverages the following main technologies and libraries:
 - **TypeScript 5** – static typing
 - **Vite 7** – lightning-fast build tool and dev server
 - **Tailwind CSS 4** – utility-first styling
-- **Radix UI** – accessible primitive components
+- **ShadCn** – accessible primitive components
 - **TanStack React Query 5** – data-fetching & caching
+- **TanStack React Virtual** - virtualization
 - **React Router 7** – client-side routing
 - **React Hook Form** – form state management
 - **Zod** – schema validation
